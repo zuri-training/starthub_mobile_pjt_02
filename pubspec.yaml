@@ -1,0 +1,29 @@
+name: starthub_mobile_pjt
+description: The StartHub project is a platform for new devs to connect with talents across african and beyond.
+ It aims to help outsource and make talents in africa accesible around the globe
+
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  google_fonts: ^2.1.0
+  provider: ^5.0.0
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  
