@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/authentication/screens/signup_screen.dart';
 
 
 void main() {
