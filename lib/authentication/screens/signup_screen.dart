@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
-    _passwordVisible = false;
+    _passwordVisible = true;
   }
 
   Widget _firstNameField() {
