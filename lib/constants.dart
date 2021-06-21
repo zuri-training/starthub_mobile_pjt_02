@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-
 const kPrimaryColor = Color(0xFF363A99);
 const kTextColor = Color(0xFF363A99);
 const kIconColor = Color(0xFF5E5E5E);
 const kBackground = Color(0xFFE5E5E5);
 const kfont = "Open Sans";
-
-const kDefaultPadding = 20.0;
+const kFontSize = 13;
 
 final kDefualtShadow = BoxShadow(
   offset: Offset(5, 5),
