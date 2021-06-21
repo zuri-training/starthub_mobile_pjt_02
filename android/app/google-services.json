@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "514535378534",
+    "project_id": "starthub-874f8",
+    "storage_bucket": "starthub-874f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514535378534:android:4e0dc16c69d627534ba7a7",
+        "android_client_info": {
+          "package_name": "com.example.starthub_mobile_pjt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514535378534-c0i84n76vsgka5nhg8sag9aj1hheqrod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiJfza3pw--DEjqDFE_bFQn8IYW0AaVhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514535378534-c0i84n76vsgka5nhg8sag9aj1hheqrod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
