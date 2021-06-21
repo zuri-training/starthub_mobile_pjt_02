@@ -17,6 +17,7 @@ dependencies:
   google_fonts: ^2.1.0
   provider: ^5.0.0
   cupertino_icons: ^1.0.2
+  font_awesome_flutter: ^9.1.0
 
 dev_dependencies:
   flutter_test:
@@ -26,4 +27,14 @@ flutter:
 
   uses-material-design: true
 
-  
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans.ttf
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf
+
