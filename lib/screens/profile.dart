@@ -6,7 +6,7 @@ import 'package:start_hub/models/project.dart';
 import 'package:start_hub/screens/edit_profile.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({
+  const ProfilePage({
     Key key,
   }) : super(key: key);
 
