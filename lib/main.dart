@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/splashscreen.dart';
 
 
 void main() {
@@ -19,14 +20,14 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.grey,
         systemNavigationBarColor: Colors.grey,
         systemNavigationBarIconBrightness: Brightness.dark));
-    return MaterialApp(
+    return MaterialApp(2
       debugShowCheckedModeBanner: false,
       title: 'StartHub',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignUp(),
+      home: Splash(),
     );
   }
 }
