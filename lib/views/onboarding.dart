@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'components/constants.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({Key key}) : super(key: key);
@@ -14,16 +14,16 @@ class Onboarding extends StatelessWidget {
           Text(
             'StartHub',
             style: GoogleFonts.raleway(
-                textStyle: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.w400,
-                  color: kBackground,
+              textStyle: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.w400,
+                color: kBackground,
               ),
             ),
           ),
           VerticalSpacing(),
           Text(
-              'Showcasing products and talents',
+            'Showcasing products and talents',
             style: GoogleFonts.openSans(
               textStyle: TextStyle(
                 fontSize: 18,

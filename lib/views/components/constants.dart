@@ -4,8 +4,53 @@ const kPrimaryColor = Color(0xFF363A99);
 const kTextColor = Color(0xFF363A99);
 const kIconColor = Color(0xFF5E5E5E);
 const kBackground = Color(0xFFE5E5E5);
+
 const kFont = "Open Sans";
 const kFontSize = 13;
+const kHintFieldTextColor = Color(0xFFBDBDBD);
+const kTextFieldFillColor = Color(0xFFF6F6F6);
+
+//TEXT STYLES
+const kHeaderTextStyle = TextStyle(
+    fontSize: 36,
+    fontFamily: 'Raleway',
+    fontWeight: FontWeight.w600,
+    color: kPrimaryColor);
+
+const kHintTextStyle = TextStyle(
+  fontSize: 16,
+  fontFamily: 'Inter',
+  fontWeight: FontWeight.w500,
+  color: kHintFieldTextColor,
+);
+
+const kButtonTextStyle = TextStyle(
+  fontSize: 18,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.w700,
+  color: Colors.white,
+);
+
+const kInkWellTextStyle = TextStyle(
+  fontSize: 16,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.w500,
+  color: kPrimaryColor,
+  decoration: TextDecoration.underline,
+);
+
+const kOrLoginTextStyle = TextStyle(
+  fontSize: 16,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.w400,
+);
+
+const kPasswordRevealStyle = TextStyle(
+  fontSize: 16,
+  fontFamily: 'Inter',
+  fontWeight: FontWeight.w500,
+  color: kPrimaryColor,
+);
 
 final kDefaultShadow = BoxShadow(
   offset: Offset(5, 5),
@@ -17,6 +62,7 @@ final kDefaultShadow = BoxShadow(
 class VerticalSpacing extends StatelessWidget {
   const VerticalSpacing({Key key, this.of = 0.02}) : super(key: key);
   final double of;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,6 +76,7 @@ class RoundedButton extends StatelessWidget {
   final String text;
   final Function press;
   final Color color, textColor;
+
   const RoundedButton({
     Key key,
     this.text,
