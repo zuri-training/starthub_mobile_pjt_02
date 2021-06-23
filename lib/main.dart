@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+// import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+// import 'package:starthub_mobile_pjt/screen/signup_screen.dart';
+import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 
 
 void main() {
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SignUp(),
+      home: ProjectScreen(),
     );
   }
 }
+
