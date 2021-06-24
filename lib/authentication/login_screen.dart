@@ -60,6 +60,17 @@ class _LogInState extends State<LogIn> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 35.0,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(25.0),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:starthub_mobile_pjt/screen/project-detail.dart';
 
 class ProjectItem extends StatelessWidget {
   final String productId;
@@ -33,25 +35,23 @@ class ProjectItem extends StatelessWidget {
               children: [
                 Text(
                   productTitle,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: GoogleFonts.inter(
+                      fontSize: 17.0,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
                   height: 5.0,
                 ),
                 Text(
                   projectOwner,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
+                  style: GoogleFonts.inter(
+                    fontSize: 15.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 SizedBox(
-                  height: 5.0,
+                  height: 7.0,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -60,25 +60,32 @@ class ProjectItem extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: Text(stack,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    child: Text(
+                      stack,
+                      style: GoogleFonts.inter(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
                   ),
                 )
               ],
             ),
           ),
         ),
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              ProjectDetailScreen.routeName,
+              arguments: productId,
+            );
+          },
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
   }
 }
-
-
