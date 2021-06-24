@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:start_hub/constants.dart';
-import 'package:start_hub/models/project.dart';
-import 'package:start_hub/screens/profile.dart';
+
+import 'package:starthub_mobile_pjt/screens/profile.dart';
+
+import '../constants.dart';
 
 class ProjectPage extends StatelessWidget {
   @override

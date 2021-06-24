@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:start_hub/screens/profile.dart';
+
 
 import '../constants.dart';
 
@@ -87,7 +87,8 @@ class _EditProfileState extends State<EditProfile> {
           backgroundColor: kPrimaryColor,
           elevation: 1,
         ),
-        body: Container(
+        body: Container( 
+          
         padding: EdgeInsets.symmetric(horizontal: 20,),
         decoration: BoxDecoration(color: kBackground),
         height: size.height,
