@@ -1,9 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:start_hub/constants.dart';
-import 'package:start_hub/models/project.dart';
-import 'package:start_hub/screens/edit_profile.dart';
+import 'package:starthub_mobile_pjt/models/project.dart';
+
+import '../constants.dart';
+import 'edit_profile.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
@@ -116,9 +116,10 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
               Divider(),
-              ProjectList(
+              Container(child: ProjectList(
                 items: projects,
-              )
+              ),)
+              
             ],
           ),
         ),
