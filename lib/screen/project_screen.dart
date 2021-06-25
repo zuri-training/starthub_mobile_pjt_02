@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/screen/signup_screen.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 
 import '../constants.dart';

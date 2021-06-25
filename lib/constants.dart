@@ -49,9 +49,22 @@ const kPasswordRevealStyle = TextStyle(
   fontSize: 16,
   fontFamily: 'Inter',
   fontWeight: FontWeight.w500,
-  color: kPrimaryColor,
 );
 
+final kForgetPasswordHeaderStyle = TextStyle(
+  fontSize: 16,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.w400,
+  color: Color(0xFFF2E3192)
+  );
+
+
+final kForgetPasswordTextStyle = TextStyle(
+  fontSize: 24,
+  fontFamily: 'OpenSans',
+  fontWeight: FontWeight.w700,
+  color: kPrimaryColor,
+);
 
 
 final kDefualtShadow = BoxShadow(

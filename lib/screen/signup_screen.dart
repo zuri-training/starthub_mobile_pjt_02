@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
-import '../presets.dart';
+import '../widget/presets.dart';
 import 'login_screen.dart';
 
 class SignUp extends StatefulWidget {
