@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:flutter/services.dart';
-import 'package:starthub_mobile_pjt/screens/profile.dart';
+import 'package:starthub_mobile_pjt/screen/profile.dart';
 
+import 'package:provider/provider.dart';
+import 'package:starthub_mobile_pjt/providers/user.dart';
+import 'package:starthub_mobile_pjt/screen/project-detail.dart';
+// import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+// import 'package:starthub_mobile_pjt/screen/signup_screen.dart';
+import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,14 +26,26 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.grey,
         systemNavigationBarColor: Colors.grey,
         systemNavigationBarIconBrightness: Brightness.dark));
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'StartHub',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Projects()),
+        ChangeNotifierProvider(create: (_) => User()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'StartHub',
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            color: Colors.white
+          ),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: ProjectScreen(),
+        routes: {
+          ProjectDetailScreen.routeName: (context) => ProjectDetailScreen(),
+        },
       ),
-      home: ProfilePage(),
     );
   }
 }

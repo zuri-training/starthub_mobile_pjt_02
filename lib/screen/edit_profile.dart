@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:starthub_mobile_pjt/screens/profile.dart';
+import 'package:starthub_mobile_pjt/screen/profile.dart';
 
 
 import '../constants.dart';
