@@ -26,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
             "Profile View",
             style: TextStyle(
                 color: kTextColor,
-                fontFamily: kfont,
+                fontFamily: kFont,
                 fontWeight: FontWeight.bold),
           ),
         ),
