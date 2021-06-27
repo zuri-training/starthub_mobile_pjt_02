@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:starthub_mobile_pjt/screen/profile.dart';
-
 import '../constants.dart';
+
 
 class EditProfile extends StatefulWidget {
   EditProfile();
@@ -81,7 +81,7 @@ class _EditProfileState extends State<EditProfile> {
               "Edit Profile",
               style: TextStyle(
                   color: Colors.white,
-                  fontFamily: kfont,
+                  fontFamily: kFont,
                   fontWeight: FontWeight.bold),
             ),
           ),

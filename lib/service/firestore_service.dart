@@ -11,46 +11,29 @@ class FirestoreService {
 
   Future createUser(UserModel user) async {
     try {
-      await _usersCollectionReference.doc(user.studentId).set(user.toJson());
+      return await _usersCollectionReference.doc(user.studentId).set(user.toJson());
     } catch (e) {
       return e.message;
     }
   }
 
-  Future getUser(String uid) async {
+  Future getUser(String studentId) async {
     try {
-      var userData = await _usersCollectionReference.doc(uid).get();
+      var userData = await _usersCollectionReference.doc(studentId).get();
       return UserModel.fromData(userData.data());
     } catch (e) {
       return e.message;
     }
   }
-
-  Future createProject(ProjectModel project) async {
+  Future updateUser(UserModel user) async {
     try {
-      await _projectCollectionReference.doc(project.projectId).set(project.toJson());
-    } catch (e) {
-      return e.message;
-    }
-  }
+      return await _usersCollectionReference.doc(user.studentId).update({
 
-  Future getProject(String uid) async {
-    try {
-      var projectData = await _projectCollectionReference.doc(uid).get();
-      return UserModel.fromData(projectData.data());
-    } catch (e) {
-      return e.message;
-    }
-  }
-
-  Future updateProject(String uid,String studentId,String firstname,String lastname, String imageUrl, String bio) async {
-    try {
-      await _projectCollectionReference.doc(uid).update({
-      "studentId": studentId,
-      "fName": firstname,
-      "lName": lastname,
-      "imageUrl": imageUrl,
-      "bio": bio,
+      "fName": user.fName,
+      "lName": user.lName,
+      "imageUrl": user.imageUrl,
+      "bio": user.bio,
+      'emailAdd':user.emailAdd,
     });
       
     } catch (e) {
@@ -58,9 +41,41 @@ class FirestoreService {
     }
   }
 
-  Future deleteProject(String uid) async {
+  Future createProject(ProjectModel project) async {
     try {
-      return await _projectCollectionReference.doc(uid).delete();
+      return await _projectCollectionReference.doc(project.projectId).set(project.toJson());
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  Future getProject(ProjectModel project) async {
+    try {
+      var projectData = await _projectCollectionReference.doc(project.projectId).get();
+      return UserModel.fromData(projectData.data());
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  Future updateProject(ProjectModel project) async {
+    try {
+      return await _projectCollectionReference.doc(project.projectId).update({
+      'projectName': project.projectName,
+      "projectInfo": project.projectInfo,
+      'imgUrl': project.imgUrl,
+      'projectOwners': project.projectOwners,
+      'tags': project.tags
+    });
+      
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  Future deleteProject(ProjectModel project) async {
+    try {
+      return await _projectCollectionReference.doc(project.projectId).delete();
     } catch (e) {
       return e.message;
     }
