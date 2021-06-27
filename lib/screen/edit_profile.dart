@@ -2,9 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:starthub_mobile_pjt/screen/profile.dart';
-
-
 import '../constants.dart';
+
 
 class EditProfile extends StatefulWidget {
   EditProfile();
@@ -23,21 +22,21 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+    // File image = await ImagePicker.pickImage(
+    //     source: ImageSource.camera, imageQuality: 50);
 
-    setState(() {
-      _image = image;
-    });
+    // setState(() {
+    //   _image = image;
+    // });
   }
 
   Future _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    // File image = await ImagePicker.pickImage(
+    //     source: ImageSource.gallery, imageQuality: 50);
 
-    setState(() {
-      _image = image;
-    });
+    // setState(() {
+    //   _image = image;
+    // });
   }
 
   void _showPicker(context) {
@@ -80,7 +79,7 @@ class _EditProfileState extends State<EditProfile> {
               "Edit Profile",
               style: TextStyle(
                   color: Colors.white,
-                  fontFamily: kfont,
+                  fontFamily: kFont,
                   fontWeight: FontWeight.bold),
             ),
           ),

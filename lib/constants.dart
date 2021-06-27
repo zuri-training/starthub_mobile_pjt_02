@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-//COLORS
 const kPrimaryColor = Color(0xFF363A99);
 const kTextColor = Color(0xFF363A99);
 const kIconColor = Color(0xFF5E5E5E);
 const kBackground = Color(0xFFE5E5E5);
+
+const kFont = "Open Sans";
+const kFontSize = 13;
 const kHintFieldTextColor = Color(0xFFBDBDBD);
 const kTextFieldFillColor = Color(0xFFF6F6F6);
-const kfont = "Open Sans";
-const kFontSize = 13;
 
 //TEXT STYLES
 const kHeaderTextStyle = TextStyle(
@@ -52,9 +52,7 @@ const kPasswordRevealStyle = TextStyle(
   color: kPrimaryColor,
 );
 
-
-
-final kDefualtShadow = BoxShadow(
+final kDefaultShadow = BoxShadow(
   offset: Offset(5, 5),
   blurRadius: 10,
   color: Color(0xFFE9E9E9).withOpacity(0.56),
@@ -64,6 +62,7 @@ final kDefualtShadow = BoxShadow(
 class VerticalSpacing extends StatelessWidget {
   const VerticalSpacing({Key key, this.of = 0.02}) : super(key: key);
   final double of;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -77,6 +76,7 @@ class RoundedButton extends StatelessWidget {
   final String text;
   final Function press;
   final Color color, textColor;
+
   const RoundedButton({
     Key key,
     this.text,
@@ -94,9 +94,11 @@ class RoundedButton extends StatelessWidget {
       width: size.width * 0.9,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
-        child: FlatButton(
-          padding: EdgeInsets.symmetric(vertical: 13, horizontal: 45),
-          color: color,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.symmetric(vertical: 13, horizontal: 45),
+            backgroundColor: color,
+          ),
           onPressed: press,
           child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
