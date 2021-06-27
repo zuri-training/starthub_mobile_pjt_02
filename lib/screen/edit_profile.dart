@@ -23,21 +23,21 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+    // File image = await ImagePicker.pickImage(
+    //     source: ImageSource.camera, imageQuality: 50);
 
-    setState(() {
-      _image = image;
-    });
+    // setState(() {
+    //   _image = image;
+    // });
   }
 
   Future _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    // File image = await ImagePicker.pickImage(
+    //     source: ImageSource.gallery, imageQuality: 50);
 
-    setState(() {
-      _image = image;
-    });
+    // setState(() {
+    //   _image = image;
+    // });
   }
 
   void _showPicker(context) {
