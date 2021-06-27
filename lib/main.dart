@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:flutter/services.dart';
+import 'package:starthub_mobile_pjt/screen/profile.dart';
+
 import 'package:provider/provider.dart';
 import 'package:starthub_mobile_pjt/providers/user.dart';
 import 'package:starthub_mobile_pjt/screen/project-detail.dart';
 // import 'package:starthub_mobile_pjt/authentication/signup_screen.dart';
 // import 'package:starthub_mobile_pjt/screen/signup_screen.dart';
 import 'package:starthub_mobile_pjt/screen/project_screen.dart';
+import 'package:starthub_mobile_pjt/screen/splashscreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: ProjectScreen(),
+        home: Splash(),
         routes: {
           ProjectDetailScreen.routeName: (context) => ProjectDetailScreen(),
         },
