@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:flutter/material.dart';
-// import 'onboarding.dart';
+import 'onboarding.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key key}) : super(key: key);
@@ -31,7 +31,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             pageBuilder: (context, animation, __) {
               return ScaleTransition(
                 scale: _animation,
-                // child: const Onboarding(),
+                child: const Onboarding(),
               );
             }),
       ),
@@ -49,7 +49,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              image: const AssetImage('assets/images/logo.png'),
+              image: const AssetImage('assets/images/starthub-logo-removebg-preview_1.png'),
               height: screenAwareSize(80, context),
               width: screenAwareSize(66.68, context),
             ),
