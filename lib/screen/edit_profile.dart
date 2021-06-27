@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:starthub_mobile_pjt/screen/profile.dart';
 
-
 import '../constants.dart';
 
 class EditProfile extends StatefulWidget {
@@ -15,6 +14,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   File _image;
+  final _picker = ImagePicker();
 
   TextEditingController fnameController = new TextEditingController();
   TextEditingController lnameController = new TextEditingController();
@@ -23,20 +23,21 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
+    
+    PickedFile image = await _picker.getImage(
         source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = image as File;
     });
   }
 
   Future _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
+    PickedFile image = await _picker.getImage(
         source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = image as File;
     });
   }
 
@@ -87,18 +88,18 @@ class _EditProfileState extends State<EditProfile> {
           backgroundColor: kPrimaryColor,
           elevation: 1,
         ),
-        body: Container( 
-          
-        padding: EdgeInsets.symmetric(horizontal: 20,),
-        decoration: BoxDecoration(color: kBackground),
-        height: size.height,
-        width: size.width,
+        body: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          decoration: BoxDecoration(color: kBackground),
+          height: size.height,
+          width: size.width,
           child: SingleChildScrollView(
-            
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                VerticalSpacing(of:0.03),
+                VerticalSpacing(of: 0.03),
                 Center(
                   child: GestureDetector(
                     onTap: () {
@@ -261,7 +262,8 @@ class _EditProfileState extends State<EditProfile> {
                   color: kPrimaryColor,
                   textColor: Colors.white,
                   press: () {
-                    if (fnameController.value != '' && lnameController.value != '') {
+                    if (fnameController.value != '' &&
+                        lnameController.value != '') {
                       ProfilePage();
                     } else {
                       Container(

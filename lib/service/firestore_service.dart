@@ -7,9 +7,9 @@ class FirestoreService {
   final CollectionReference _usersCollectionReference =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference _projectCollectionReference =
-      FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('projects');
 
-  Future _createUser(UserModel user) async {
+  Future createUser(UserModel user) async {
     try {
       await _usersCollectionReference.doc(user.studentId).set(user.toJson());
     } catch (e) {
@@ -26,7 +26,7 @@ class FirestoreService {
     }
   }
 
-  Future _createProject(ProjectModel project) async {
+  Future createProject(ProjectModel project) async {
     try {
       await _projectCollectionReference.doc(project.projectId).set(project.toJson());
     } catch (e) {
@@ -43,9 +43,15 @@ class FirestoreService {
     }
   }
 
-  Future updateProject(String uid) async {
+  Future updateProject(String uid,String studentId,String firstname,String lastname, String imageUrl, String bio) async {
     try {
-      await _projectCollectionReference.doc(uid).update();
+      await _projectCollectionReference.doc(uid).update({
+      "studentId": studentId,
+      "fName": firstname,
+      "lName": lastname,
+      "imageUrl": imageUrl,
+      "bio": bio,
+    });
       
     } catch (e) {
       return e.message;
@@ -54,8 +60,7 @@ class FirestoreService {
 
   Future deleteProject(String uid) async {
     try {
-      var projectData = await _projectCollectionReference.doc(uid).get();
-      return UserModel.fromData(projectData.data());
+      return await _projectCollectionReference.doc(uid).delete();
     } catch (e) {
       return e.message;
     }

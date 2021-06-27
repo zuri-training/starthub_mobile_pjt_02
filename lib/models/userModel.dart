@@ -26,7 +26,7 @@ class UserModel {
         bio = data['bio'],
         emailAdd = data['emailAdd'];
 
-  Map<String, dynamic> toJson() {
+    Map<String, dynamic> toJson() {
     return {
       studentId: 'studentId',
       fName: 'firstname',

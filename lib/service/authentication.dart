@@ -13,7 +13,7 @@ class AuthService with ChangeNotifier {
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirestoreService _firestoreService = locator<FirestoreService>();
+  FirestoreService _firestoreService = FirestoreService();
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
 
