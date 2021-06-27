@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:flutter/services.dart';
-import 'package:starthub_mobile_pjt/screen/profile.dart';
+// import 'package:starthub_mobile_pjt/screen/profile.dart';
 
 import 'package:provider/provider.dart';
 import 'package:starthub_mobile_pjt/providers/user.dart';
 import 'package:starthub_mobile_pjt/screen/project-detail.dart';
 // import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
 // import 'package:starthub_mobile_pjt/screen/signup_screen.dart';
-import 'package:starthub_mobile_pjt/screen/project_screen.dart';
+// import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 import 'package:starthub_mobile_pjt/screen/splashscreen.dart';
 
 void main() {

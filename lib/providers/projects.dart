@@ -44,4 +44,12 @@ class Projects with ChangeNotifier {
   List<ProjectModel> get items {
     return [..._item];
   }
+
+  List<ProjectModel> searchQuery(String searchText) {
+    List searchItem = items
+        .where((proj) =>
+            proj.projectName.toLowerCase().contains(searchText.toLowerCase()))
+        .toList();
+    return searchItem;
+  }
 }

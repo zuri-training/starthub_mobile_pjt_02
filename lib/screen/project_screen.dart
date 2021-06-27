@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/models/projectModel.dart';
+import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
-
+import 'package:provider/provider.dart';
 import '../constants.dart';
 
 class ProjectScreen extends StatefulWidget {
@@ -12,62 +14,66 @@ class ProjectScreen extends StatefulWidget {
 
 class _ProjectScreenState extends State<ProjectScreen> {
   Icon customIcon = Icon(Icons.search);
+  TextEditingController _searchController = TextEditingController();
 
-  Widget customText = Text(
-    'Welcome!',
-    style: GoogleFonts.inter(
-      fontSize: 18.0,
-      
-    )
-  );
-
-  void toggleSearch() {
-    setState(() {
-      if (customIcon.icon == Icons.search) {
-        customIcon = Icon(Icons.cancel);
-        customText = Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 10.0,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2.0,
-                    ),
-                  ),
-                  hintText: 'Seacrh for project/intern',
-                  hintStyle: TextStyle(fontSize: 17.0),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0))),
-              textAlign: TextAlign.center,
-              autofocus: true,
-              textInputAction: TextInputAction.go,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15.0,
-              ),
-            ),
-          ),
-        );
-      } else {
-        this.customIcon = Icon(Icons.search);
-        this.customText = Text('Welcome!',
-            style: GoogleFonts.inter(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ));
-      }
-    });
+  Widget customText = Text('Welcome!',
+      style: GoogleFonts.inter(
+        fontSize: 18.0,
+      ));
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
   }
 
+  // void toggleSearch() {
+  //   setState(() {
+  //     if (customIcon.icon == Icons.search) {
+  //       customIcon = Icon(Icons.cancel);
+  //       customText = Container(
+  //         height: 40,
+  //         child: Padding(
+  //           padding: const EdgeInsets.only(
+  //             left: 20,
+  //             right: 10.0,
+  //           ),
+  //           child: TextField(
+  //             decoration: InputDecoration(
+  //                 focusedBorder: OutlineInputBorder(
+  //                   borderRadius: BorderRadius.circular(20.0),
+  //                   borderSide: BorderSide(
+  //                     color: Colors.grey,
+  //                     width: 2.0,
+  //                   ),
+  //                 ),
+  //                 hintText: 'Seacrh for project/intern',
+  //                 hintStyle: TextStyle(fontSize: 17.0),
+  //                 border: OutlineInputBorder(
+  //                     borderRadius: BorderRadius.circular(20.0))),
+  //             textAlign: TextAlign.center,
+  //             autofocus: true,
+  //             textInputAction: TextInputAction.go,
+  //             style: TextStyle(
+  //               color: Colors.black,
+  //               fontSize: 15.0,
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     } else {
+  //       this.customIcon = Icon(Icons.search);
+  //       this.customText = Text('Welcome!',
+  //           style: GoogleFonts.inter(
+  //             fontSize: 20,
+  //             fontWeight: FontWeight.w400,
+  //           ));
+  //     }
+  //   });
+  // }
+  List<ProjectModel> _searchList = [];
   @override
   Widget build(BuildContext context) {
+    final projectData = Provider.of<Projects>(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -78,7 +84,62 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: customText),
-                  IconButton(icon: customIcon, onPressed: toggleSearch)
+                  IconButton(
+                      icon: customIcon,
+                      onPressed: () {
+                        setState(() {
+                          if (customIcon.icon == Icons.search) {
+                            customIcon = Icon(Icons.cancel);
+                            customText = Container(
+                              height: 40,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                  right: 10.0,
+                                ),
+                                child: TextField(
+                                  onChanged: (value) {
+                                    _searchController.text.toLowerCase();
+                                    setState(() {
+                                      _searchList =
+                                          projectData.searchQuery(value);
+                                    });
+                                  },
+                                  controller: _searchController,
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        borderSide: BorderSide(
+                                          color: Colors.grey,
+                                          width: 2.0,
+                                        ),
+                                      ),
+                                      hintText: 'Seacrh for project/intern',
+                                      hintStyle: TextStyle(fontSize: 17.0),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0))),
+                                  textAlign: TextAlign.center,
+                                  autofocus: true,
+                                  textInputAction: TextInputAction.go,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            this.customIcon = Icon(Icons.search);
+                            this.customText = Text('Welcome!',
+                                style: GoogleFonts.inter(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                ));
+                          }
+                        });
+                      }),
                 ],
               ),
             ),
