@@ -6,7 +6,7 @@ const kIconColor = Color(0xFF5E5E5E);
 const kBackground = Color(0xFFE5E5E5);
 
 const kFont = "Open Sans";
-const kFontSize = 13;
+const kFontSize = 14;
 const kHintFieldTextColor = Color(0xFFBDBDBD);
 const kTextFieldFillColor = Color(0xFFF6F6F6);
 
