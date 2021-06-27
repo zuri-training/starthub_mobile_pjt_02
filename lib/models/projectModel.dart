@@ -1,5 +1,3 @@
-// enum StackTag { design, frontend, backend, mobile }
-
 class ProjectModel {
   final String projectName;
   final String projectId;
@@ -16,22 +14,22 @@ class ProjectModel {
     this.projectOwners,
     this.tags,
   });
-  ProjectModel.fromData(Map<String, dynamic> data)
-      : projectId = data['projectId'],
-        projectName = data['projectName'],
+  ProjectModel.fromData(Map<String, dynamic> data, String projectId)
+      : projectName = data['projectName'],
         projectInfo = data['projectInfo'],
         imgUrl = data['imgUrl'],
         projectOwners = data['projectOwners'],
-        tags = data['tags'];
+        tags = data['tags'],
+        projectId = projectId;
 
   Map<String, dynamic> toJson() {
     return {
-      projectId: 'projectId',
-      projectName: 'projectName',
-      projectInfo: 'projectInfo',
-      imgUrl: 'imgUrl',
-      projectOwners: 'projectOwners',
-      tags: 'tags'
+      'projectId': projectId,
+      'projectName': projectName,
+      'projectInfo': projectInfo,
+      'imgUrl': imgUrl,
+      'projectOwners': projectOwners,
+      'tags': tags
     };
   }
 }

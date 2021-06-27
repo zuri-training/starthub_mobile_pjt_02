@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:starthub_mobile_pjt/screen/profile.dart';
+import 'package:starthub_mobile_pjt/service/firestore_service.dart';
 import '../constants.dart';
-
 
 class EditProfile extends StatefulWidget {
   EditProfile();
@@ -23,9 +23,8 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future _imgFromCamera() async {
-    
-    PickedFile image = await _picker.getImage(
-        source: ImageSource.camera, imageQuality: 50);
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
       _image = image as File;
@@ -33,8 +32,8 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future _imgFromGallery() async {
-    PickedFile image = await _picker.getImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
       _image = image as File;
@@ -264,6 +263,7 @@ class _EditProfileState extends State<EditProfile> {
                   press: () {
                     if (fnameController.value != '' &&
                         lnameController.value != '') {
+                      
                       ProfilePage();
                     } else {
                       Container(
