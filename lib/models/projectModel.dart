@@ -16,4 +16,22 @@ class ProjectModel {
     this.projectOwners,
     this.tags,
   });
+  ProjectModel.fromData(Map<String, dynamic> data)
+      : projectId = data['projectId'],
+        projectName = data['projectName'],
+        projectInfo = data['projectInfo'],
+        imgUrl = data['imgUrl'],
+        projectOwners = data['projectOwners'],
+        tags = data['tags'];
+
+  Map<String, dynamic> toJson() {
+    return {
+      projectId: 'projectId',
+      projectName: 'projectName',
+      projectInfo: 'projectInfo',
+      imgUrl: 'imgUrl',
+      projectOwners: 'projectOwners',
+      tags: 'tags'
+    };
+  }
 }
