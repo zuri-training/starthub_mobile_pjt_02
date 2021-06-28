@@ -127,7 +127,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               Divider(),
-              ProjectGrid(),
+              
+              // ProjectGrid(),
+              
             ],
           ),
         ),
