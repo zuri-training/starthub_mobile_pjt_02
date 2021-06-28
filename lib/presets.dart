@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
-
 //Headers for login and sign up page
 class NewHeaders extends StatelessWidget {
   NewHeaders({this.headerText});
@@ -49,8 +48,9 @@ class NewButton extends StatelessWidget {
 
 //Textfield for login and sign up page
 class NewTextField extends StatelessWidget {
-  NewTextField({this.hintText});
+  NewTextField({this.hintText, this.controller});
   final String hintText;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +58,7 @@ class NewTextField extends StatelessWidget {
         height: 50,
         child: Center(
             child: TextField(
+                controller: controller,
                 decoration: InputDecoration(
                     hintText: hintText,
                     hintStyle: kHintTextStyle,
