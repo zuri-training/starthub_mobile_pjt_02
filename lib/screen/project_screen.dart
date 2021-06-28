@@ -99,9 +99,9 @@ class _ProjectScreenState extends State<ProjectScreen> {
                                 ),
                                 child: TextField(
                                   onChanged: (value) {
-                                    _searchController.text.toLowerCase();
+                                    _searchController.text;
                                     setState(() {
-                                     _searchProject =
+                                      _searchProject =
                                           projectData.searchQuery(value);
                                     });
                                   },
@@ -115,7 +115,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                                           width: 2.0,
                                         ),
                                       ),
-                                      hintText: 'Seacrh for project/intern',
+                                      hintText: 'Search for project/intern',
                                       hintStyle: TextStyle(fontSize: 17.0),
                                       border: OutlineInputBorder(
                                           borderRadius:
@@ -138,7 +138,6 @@ class _ProjectScreenState extends State<ProjectScreen> {
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                 ));
-                          
                           }
                         });
                       }),
@@ -167,7 +166,18 @@ class _ProjectScreenState extends State<ProjectScreen> {
               ),
             ),
             Expanded(
-              child: ProjectGrid(_searchProject),
+              flex: 1,
+              child: _searchProject.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No Records Found',
+                        style: GoogleFonts.inter(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : ProjectGrid(_searchProject),
             )
           ],
         ),

@@ -20,16 +20,17 @@ class ProjectGrid extends StatelessWidget {
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
-        childAspectRatio: 3/2,
+        childAspectRatio: 3 / 2,
         mainAxisSpacing: 20,
       ),
-      itemBuilder: (context, index) => ProjectItem(
-        projects[index].projectName,
-        projects[index].projectId,
-        projects[index].imgUrl,
-        projects[index].projectOwners,
-        projects[index].tags,
-      ),
+      itemBuilder: (context, index) =>
+          ProjectItem(
+                  projects[index].projectName,
+                  projects[index].projectId,
+                  projects[index].imgUrl,
+                  projects[index].projectOwners,
+                  projects[index].tags,
+                ),
       itemCount: projects.length,
     );
   }

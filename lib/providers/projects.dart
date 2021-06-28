@@ -44,7 +44,7 @@ class Projects with ChangeNotifier {
   List<ProjectModel> get items {
     return [..._item];
   }
-
+//search method
   List<ProjectModel> searchQuery(String searchText) {
     List searchItem = items
         .where((proj) =>
