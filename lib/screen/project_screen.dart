@@ -70,7 +70,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   //     }
   //   });
   // }
-  List<ProjectModel> _searchList = [];
+  List<ProjectModel> _searchProject = [];
   @override
   Widget build(BuildContext context) {
     final projectData = Provider.of<Projects>(context);
@@ -101,7 +101,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                                   onChanged: (value) {
                                     _searchController.text.toLowerCase();
                                     setState(() {
-                                      _searchList =
+                                     _searchProject =
                                           projectData.searchQuery(value);
                                     });
                                   },
@@ -132,11 +132,13 @@ class _ProjectScreenState extends State<ProjectScreen> {
                             );
                           } else {
                             this.customIcon = Icon(Icons.search);
+
                             this.customText = Text('Welcome!',
                                 style: GoogleFonts.inter(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                 ));
+                          
                           }
                         });
                       }),
@@ -165,7 +167,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
               ),
             ),
             Expanded(
-              child: ProjectGrid(),
+              child: ProjectGrid(_searchProject),
             )
           ],
         ),
