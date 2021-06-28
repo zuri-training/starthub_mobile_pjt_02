@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:starthub_mobile_pjt/models/userModel.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
-
 
 import '../constants.dart';
 import 'edit_profile.dart';
@@ -16,6 +16,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  UserModel user;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -47,8 +49,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Image.asset(
                       'assets/images/starthub-logo-removebg-preview_1.png',
-                      width: size.width*0.3,
-                      height: size.height*0.1),
+                      width: size.width * 0.3,
+                      height: size.height * 0.1),
                   Container(
                     decoration:
                         BoxDecoration(border: Border.all(color: kPrimaryColor)),
@@ -89,8 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  const Text(
-                    "Intern name",
+                   Text(
+                    user.fName + user.lName,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -98,8 +100,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   VerticalDivider(),
-                  const Text(
-                    "intern@starthub.com",
+                  Text(
+                    user.emailAdd,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -108,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   VerticalSpacing(),
                   Text(
-                    "Hello World",
+                    user.bio,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -122,12 +124,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   NavItem(title: 'Projects', press: () {}, number: 26),
                   NavItem(title: 'Reviews', press: () {}, number: 25),
-                  NavItem(title: 'Contacted', press: () {}, number: 26),
                 ],
               ),
               Divider(),
               
-              ProjectGrid(),
+              // ProjectGrid(),
               
             ],
           ),
@@ -187,4 +188,3 @@ class NavItem extends StatelessWidget {
     );
   }
 }
-
