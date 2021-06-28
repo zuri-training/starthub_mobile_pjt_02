@@ -13,9 +13,9 @@ class UserModel {
     @required this.fName,
     @required this.lName,
      this.imageUrl,
-     this.bio,
+      this.bio,
     @required this.emailAdd,
-    @required this.studentId,
+  this.studentId,
   });
 
   UserModel.fromData(Map<String, dynamic> data)

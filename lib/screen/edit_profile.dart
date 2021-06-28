@@ -1,6 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:starthub_mobile_pjt/models/userModel.dart';
 import 'package:starthub_mobile_pjt/screen/profile.dart';
 import 'package:starthub_mobile_pjt/service/firestore_service.dart';
 import '../constants.dart';
@@ -15,12 +19,58 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   File _image;
   final _picker = ImagePicker();
+  FirestoreService firestoreService;
 
   TextEditingController fnameController = new TextEditingController();
   TextEditingController lnameController = new TextEditingController();
   TextEditingController websiteController = new TextEditingController();
   TextEditingController bioController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: kPrimaryColor));
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  static bool isValidEmail(String em) {
+    String p =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(p);
+    return regExp.hasMatch(em);
+  }
+
+  static bool isValidFirstName(String firstName) {
+    bool b = false;
+    if (firstName.length < 1) {
+      b = false;
+    } else {
+      b = true;
+    }
+    return b;
+  }
+
+  static bool isValidLastName(String lastName) {
+    bool b = false;
+    if (lastName.length < 1) {
+      b = false;
+    } else {
+      b = true;
+    }
+    return b;
+  }
 
   Future _imgFromCamera() async {
     PickedFile image =
@@ -260,32 +310,67 @@ class _EditProfileState extends State<EditProfile> {
                   text: "Update Profile",
                   color: kPrimaryColor,
                   textColor: Colors.white,
-                  press: () {
-                    if (fnameController.value != '' &&
-                        lnameController.value != '') {
-                      
-                      ProfilePage();
-                    } else {
-                      Container(
-                        color: Colors.amber,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        child: ListTile(
-                          title: Text("fill the empty boxes"),
-                          leading: Icon(Icons.error),
-                          trailing: IconButton(
-                              onPressed: () {
-                                // Authenticate();
-                              },
-                              icon: Icon(Icons.close)),
-                        ),
+                  press: () async {
+                    if (!isValidFirstName(fnameController.text)) {
+                      Fluttertoast.showToast(
+                        msg: "firstname is not valid",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
                       );
+                    } else if (!isValidLastName(lnameController.text)) {
+                      Fluttertoast.showToast(
+                        msg: "lastname is not valid",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                      );
+                    } else if (!isValidEmail(emailController.text)) {
+                      Fluttertoast.showToast(
+                        msg: "Please check your email address again",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                      );
+                    } else {
+                      print("updating profile");
+                      CircularProgressIndicator(backgroundColor: kPrimaryColor);
+
+                      var result = await firestoreService.updateUser(UserModel(
+                          fName: fnameController.text,
+                          lName: lnameController.text,
+                          emailAdd: emailController.text,
+                          bio: bioController.text,
+                          imageUrl: _image.toString()));
+                      if (result == null) {
+                        return Container(
+                          color: Colors.amber,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          child: ListTile(
+                            title: Text("fill the empty boxes"),
+                            leading: Icon(Icons.error),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  // Authenticate();
+                                },
+                                icon: Icon(Icons.close)),
+                          ),
+                        );
+                      }
                     }
                   },
                 ),
               ],
             ),
           ),
-        ));
+        )
+      );
   }
 }
