@@ -9,14 +9,31 @@ class UserModel {
   final String imageUrl;
   final String bio;
 
-
   UserModel({
     @required this.fName,
     @required this.lName,
-    @required this.imageUrl,
-    @required this.bio,
+     this.imageUrl,
+      this.bio,
     @required this.emailAdd,
-    @required this.studentId,
-
+  this.studentId,
   });
+
+  UserModel.fromData(Map<String, dynamic> data)
+      : studentId = data['studentId'],
+        fName = data['firstname'],
+        lName = data['lastname'],
+        imageUrl = data['imageUrl'],
+        bio = data['bio'],
+        emailAdd = data['emailAdd'];
+
+    Map<String, dynamic> toJson() {
+    return {
+      studentId: 'studentId',
+      fName: 'firstname',
+      lName: 'lastname',
+      imageUrl: 'imageUrl',
+      bio: 'bio',
+      emailAdd: 'emailAdd'
+    };
+  }
 }
