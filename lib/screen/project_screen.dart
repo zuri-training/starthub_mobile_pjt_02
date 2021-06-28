@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked/stacked.dart';
 import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 
 import '../constants.dart';
@@ -68,47 +70,53 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 40, left: 30, right: 30.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: customText),
-                  IconButton(icon: customIcon, onPressed: toggleSearch)
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 30.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignUp()),
-                    );
-                  },
-                  child: Text('Signup to showcase your project!',
-                      style: GoogleFonts.inter(
-                        decoration: TextDecoration.underline,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: kPrimaryColor,
-                      )),
+    return ViewModelBuilder<StartUpViewModel>.reactive(
+      viewModelBuilder: ()=>StartUpViewModel(),
+      onModelReady: (model) =>model.handleStartUpLogic() ,
+      builder: (context, model, child) {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, left: 30, right: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: customText),
+                      IconButton(icon: customIcon, onPressed: toggleSearch)
+                    ],
+                  ),
                 ),
-              ),
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
+                        );
+                      },
+                      child: Text('Signup to showcase your project!',
+                          style: GoogleFonts.inter(
+                            decoration: TextDecoration.underline,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: kPrimaryColor,
+                          )),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ProjectGrid(),
+                )
+              ],
             ),
-            Expanded(
-              child: ProjectGrid(),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }
