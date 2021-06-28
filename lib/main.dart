@@ -4,15 +4,12 @@ import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:flutter/services.dart';
 import 'package:starthub_mobile_pjt/router.dart';
-import 'package:starthub_mobile_pjt/screen/profile.dart';
-
 import 'package:provider/provider.dart';
 import 'package:starthub_mobile_pjt/providers/user.dart';
 import 'package:starthub_mobile_pjt/screen/project-detail.dart';
 import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 import 'package:starthub_mobile_pjt/screen/splashscreen.dart';
 import 'package:starthub_mobile_pjt/service/authentication.dart';
-import 'package:starthub_mobile_pjt/service/dialog_service.dart';
 import 'package:starthub_mobile_pjt/service/navigation_service.dart';
 
 import 'widget/loading.dart';
