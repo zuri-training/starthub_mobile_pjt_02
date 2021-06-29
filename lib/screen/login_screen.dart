@@ -111,7 +111,7 @@ class _LogInState extends State<LogIn> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('or login in', style: kOrLoginTextStyle),
+                                Text('or login in', style: kUniversalTextStyle),
                                 NewInkWell(
                                     text: 'Google',
                                     icon: FontAwesomeIcons.google),
@@ -124,7 +124,7 @@ class _LogInState extends State<LogIn> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text('Don\'t have an account?',
-                                    style: kOrLoginTextStyle),
+                                    style: kUniversalTextStyle),
                                 SizedBox(width: 5),
                                 InkWell(
                                     onTap: () => Navigator.push(

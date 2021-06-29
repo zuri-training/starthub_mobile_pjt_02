@@ -163,7 +163,7 @@ class _SignUpState extends State<SignUp> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text('Already have an account?',
-                                        style: kOrLoginTextStyle),
+                                        style: kUniversalTextStyle),
                                     SizedBox(width: 5),
                                     InkWell(
                                         onTap: () => Navigator.push(
@@ -182,7 +182,7 @@ class _SignUpState extends State<SignUp> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('or signup with',
-                                      style: kOrLoginTextStyle),
+                                      style: kUniversalTextStyle),
                                   NewInkWell(
                                       text: 'Google',
                                       icon: FontAwesomeIcons.google),

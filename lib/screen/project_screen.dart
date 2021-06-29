@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
 import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
+import 'signup_screen.dart';
 
 class ProjectScreen extends StatefulWidget {
   @override

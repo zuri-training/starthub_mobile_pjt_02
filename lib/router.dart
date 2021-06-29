@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:starthub_mobile_pjt/authentication/login_screen.dart';
-import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
 import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 import 'package:starthub_mobile_pjt/widget/route_name.dart';
+
+import 'screen/login_screen.dart';
+import 'screen/signup_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

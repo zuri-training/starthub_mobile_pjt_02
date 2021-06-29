@@ -39,7 +39,7 @@ const kInkWellTextStyle = TextStyle(
   decoration: TextDecoration.underline,
 );
 
-const kOrLoginTextStyle = TextStyle(
+const kUniversalTextStyle = TextStyle(
   fontSize: 16,
   fontFamily: 'OpenSans',
   fontWeight: FontWeight.w400,
