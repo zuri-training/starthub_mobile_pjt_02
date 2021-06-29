@@ -340,7 +340,7 @@ class _EditProfileState extends State<EditProfile> {
                       );
                     } else {
                       print("updating profile");
-                      CircularProgressIndicator(backgroundColor: kPrimaryColor);
+                      CircularProgressIndicator(strokeWidth: 2,valueColor: AlwaysStoppedAnimation<Color>(kBackground),);
 
                       var result = await firestoreService.updateUser(UserModel(
                           fName: fnameController.text,
