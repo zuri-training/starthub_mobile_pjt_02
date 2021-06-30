@@ -16,18 +16,33 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool isChecked = false;
+  final _formkey = GlobalKey<FormState>();
   bool _passwordVisible;
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController _confirmUserPasswordController =
-      TextEditingController();
+  TextEditingController passwordController;
+  TextEditingController emailController;
+  TextEditingController firstNameController;
+  TextEditingController lastNameController;
+  TextEditingController _confirmUserPasswordController;
 
   @override
   void initState() {
     super.initState();
     _passwordVisible = true;
+    passwordController = TextEditingController();
+    emailController = TextEditingController();
+    _confirmUserPasswordController = TextEditingController();
+    lastNameController = TextEditingController();
+    firstNameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    _confirmUserPasswordController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    super.dispose();
   }
 
   Widget _firstNameField() {
@@ -87,10 +102,11 @@ class _SignUpState extends State<SignUp> {
             filled: true));
   }
 
-  Widget _submitButton(Function pressed) {
+  Widget _submitButton({bool busy, Function pressed}) {
     return NewButton(
       buttonText: 'Create Account',
       onTap: pressed,
+      busy: busy,
     );
   }
 
@@ -115,85 +131,101 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 body: SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(minHeight: screenSize.height),
-                        child: SingleChildScrollView(
-                          physics: ClampingScrollPhysics(),
-                          child: Column(
-                            children: [
-                              NewHeaders(headerText: 'Create An Account'),
-                              _firstNameField(),
-                              SizedBox(height: 20),
-                              _lastNameField(),
-                              SizedBox(height: 20),
-                              _emailField(),
-                              SizedBox(height: 20),
-                              _passwordField(),
-                              SizedBox(height: 20),
-                              _confirmPasswordField(),
-                              SizedBox(height: 13),
-                              CheckboxListTile(
-                                dense: true,
-                                activeColor: kPrimaryColor,
-                                title: Text(
-                                    'I read and agreed to Terms and Conditions'),
-                                value: isChecked,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    isChecked = newValue;
-                                  });
-                                },
-                                controlAffinity: ListTileControlAffinity
-                                    .leading, //  <-- leading Checkbox
-                              ),
-                              SizedBox(height: 10),
-                              _submitButton(() {
-                                model.signup(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  lastname: lastNameController.text,
-                                  firstname: firstNameController.text,
-                                );
-                              }),
-                              SizedBox(height: 15),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                  child: Form(
+                    key: _formkey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: ConstrainedBox(
+                          constraints:
+                              BoxConstraints(minHeight: screenSize.height),
+                          child: SingleChildScrollView(
+                            physics: ClampingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                NewHeaders(headerText: 'Create An Account'),
+                                _firstNameField(),
+                                SizedBox(height: 20),
+                                _lastNameField(),
+                                SizedBox(height: 20),
+                                _emailField(),
+                                SizedBox(height: 20),
+                                _passwordField(),
+                                SizedBox(height: 20),
+                                _confirmPasswordField(),
+                                SizedBox(height: 13),
+                                CheckboxListTile(
+                                  dense: true,
+                                  activeColor: kPrimaryColor,
+                                  title: Text(
+                                      'I read and agreed to Terms and Conditions'),
+                                  value: isChecked,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      isChecked = newValue;
+                                    });
+                                  },
+                                  controlAffinity: ListTileControlAffinity
+                                      .leading, //  <-- leading Checkbox
+                                ),
+                                SizedBox(height: 10),
+                                _submitButton(
+                                    busy: model.busy,
+                                    pressed: () {
+                                      if (_formkey.currentState.validate()) {
+                                        _formkey.currentState.save();
+                                        print(
+                                            "Email Address: ${emailController.text}");
+                                        print(
+                                            "Password: ${passwordController.text}");
+                                        model.signup(
+                                          email: emailController.text.trim(),
+                                          password:
+                                              passwordController.text.trim(),
+                                          lastname:
+                                              lastNameController.text.trim(),
+                                          firstname:
+                                              firstNameController.text.trim(),
+                                        );
+                                      }
+                                    }),
+                                SizedBox(height: 15),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Already have an account?',
+                                          style: kOrLoginTextStyle),
+                                      SizedBox(width: 5),
+                                      InkWell(
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LogIn())),
+                                          child: Text(
+                                            'Sign in',
+                                            style: kInkWellTextStyle,
+                                          )),
+                                    ]),
+                                SizedBox(height: 31),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('Already have an account?',
+                                    Text('or signup with',
                                         style: kOrLoginTextStyle),
-                                    SizedBox(width: 5),
-                                    InkWell(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => LogIn())),
-                                        child: Text(
-                                          'Sign in',
-                                          style: kInkWellTextStyle,
-                                        )),
-                                  ]),
-                              SizedBox(height: 31),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('or signup with',
-                                      style: kOrLoginTextStyle),
-                                  NewInkWell(
-                                      text: 'Google',
-                                      icon: FontAwesomeIcons.google),
-                                  NewInkWell(
-                                      text: 'Github',
-                                      icon: FontAwesomeIcons.github)
-                                ],
-                              ),
-                            ],
-                          ),
-                        )),
+                                    NewInkWell(
+                                        text: 'Google',
+                                        icon: FontAwesomeIcons.google),
+                                    NewInkWell(
+                                        text: 'Github',
+                                        icon: FontAwesomeIcons.github)
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
                   ),
                 ));
           }

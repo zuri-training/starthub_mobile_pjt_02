@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:starthub_mobile_pjt/locator.dart';
 import 'package:starthub_mobile_pjt/models/userModel.dart';
 import 'package:starthub_mobile_pjt/service/authentication.dart';
 
 class BaseModel extends ChangeNotifier {
-  final AuthService _authService = AuthService();
+  final AuthService _authService = locator<AuthService>();
 
   UserModel get currentUser => _authService.currentUser;
 

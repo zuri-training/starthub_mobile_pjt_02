@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class DialogService {
   GlobalKey<NavigatorState> _dialogNavigationKey = GlobalKey<NavigatorState>();
@@ -72,5 +71,5 @@ class DialogResponse {
   final String fieldTwo;
   final bool confirmed;
 
-  DialogResponse(this.fieldOne, this.fieldTwo, this.confirmed);
+  DialogResponse({this.fieldOne, this.fieldTwo, this.confirmed});
 }
