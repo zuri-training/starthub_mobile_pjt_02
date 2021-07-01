@@ -25,7 +25,7 @@ class AuthService with ChangeNotifier {
       @required String firstname,
       @required String lastname}) async {
     try {
-      var authResult = await _auth.createUserWithEmailAndPassword(
+      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: password).then((value) =>  _firestoreService.createUser(UserModel(
           studentId: value.user.uid,
           emailAdd: email,
@@ -33,7 +33,7 @@ class AuthService with ChangeNotifier {
           lName: lastname)
           )
           );
-      return authResult.user != null;
+      return authResult.credential;
     } on SocketException {
       setMessage('No Internet Connection');
     } catch (e) {
@@ -45,11 +45,11 @@ class AuthService with ChangeNotifier {
   // create method to sign in with email/password
   Future loginWithEmail(String email, String password) async {
     try {
-     var authResult = await _auth.signInWithEmailAndPassword(
+     UserCredential authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       await _populateCurrentUser(authResult.user);
       
-      return authResult.user != null;
+      return authResult.credential;
     } on SocketException {
       setMessage('No Internet Connection');
     } catch (e) {

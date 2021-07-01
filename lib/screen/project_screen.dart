@@ -76,11 +76,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final projectData = Provider.of<Projects>(context);
-    return ViewModelBuilder<StartUpViewModel>.reactive(
-        viewModelBuilder: () => StartUpViewModel(),
-        onModelReady: (model) => model.handleStartUpLogic(),
-        builder: (context, model, child) {
-          return Scaffold(
+    return Scaffold(
               body: SafeArea(
             child: Column(
               children: <Widget>[
@@ -190,6 +186,5 @@ class _ProjectScreenState extends State<ProjectScreen> {
               ],
             ),
           ));
-        });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:starthub_mobile_pjt/locator.dart';
 import 'package:starthub_mobile_pjt/models/base_model.dart';
@@ -17,21 +18,16 @@ class LoginViewModel extends BaseModel {
   }) async {
     setBusy(true);
 
-    var result = await _authService.loginWithEmail(email, password);
+    UserCredential result = await _authService.loginWithEmail(email, password);
     setBusy(true);
-
-    if (result != null) {
-      if (result) {
-        print('homme is here');
-        _navigationService.navigateTo(HomeViewRoute);
-      } else {
-        await _dialogService.showDialog(
-            title: "Login Failure",
-            description: 'General login failure. Please try again later');
-      }
+    print('result: $result');
+    if (result is bool) {
+      print('homme is here');
+      return await _navigationService.navigateTo(HomeViewRoute);
     } else {
-      await _dialogService.showDialog(
-          title: "Login Failure", description: result);
+      return await _dialogService.showDialog(
+          title: "Login Failure",
+          description: 'General login failure. Please try again later');
     }
   }
 

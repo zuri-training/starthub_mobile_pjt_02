@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
     final _init = Firebase.initializeApp();
     return FutureBuilder<FirebaseApp>(
         future: _init,
+        initialData: null,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return MultiProvider(
@@ -67,6 +68,8 @@ class MyApp extends StatelessWidget {
                   // },
                   onGenerateRoute: generateRoute,
                 ));
+          } else {
+            return MaterialApp(home: LoadingWidget());
           }
         });
   }

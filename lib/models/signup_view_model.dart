@@ -17,10 +17,10 @@ class SignUpViewModel extends BaseModel {
     @required String password,
     @required String firstname,
     @required String lastname,
-    }) {
+    }) async {
     setBusy(true);
 
-    var result =_authService.signUp(
+    var result = await _authService.signUp(
         email: email,
         password: password,
         firstname: firstname,
@@ -28,8 +28,6 @@ class SignUpViewModel extends BaseModel {
     setBusy(true);
     print('here');
     print("result: $result");
-
-    if (result is bool) {
       
       if (result != null) {
         return _navigationService.navigateTo(HomeViewRoute);
@@ -38,10 +36,6 @@ class SignUpViewModel extends BaseModel {
             title: "Login Failure",
             description: 'General login failure. Please try again later');
       }
-    } else {
-      return _dialogService.showDialog(
-          title: "Sign Up Failure", description: result.toString());
-    }
   }
 
   void navigateToLogin() {
