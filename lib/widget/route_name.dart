@@ -1,4 +1,4 @@
-const String LoginViewRoute = 'LoginView';
-const String SignUpViewRoute = 'SignUp';
-const String HomeViewRoute = 'ProjectScreen';
 const String CreateProjectViewRoute = 'CreateProject';
+const String LoginViewRoute = "LogIn";
+const String SignUpViewRoute = "SignUp";
+const String HomeViewRoute = "ProfilePage";

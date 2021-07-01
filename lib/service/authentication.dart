@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:starthub_mobile_pjt/locator.dart';
 import 'package:starthub_mobile_pjt/models/userModel.dart';
 import 'package:starthub_mobile_pjt/service/firestore_service.dart';
 
@@ -8,7 +9,7 @@ class AuthService with ChangeNotifier {
   String _errorMessage;
   String get errorMessage => _errorMessage;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirestoreService _firestoreService = FirestoreService();
+  FirestoreService _firestoreService = locator<FirestoreService>();
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
 
@@ -18,30 +19,25 @@ class AuthService with ChangeNotifier {
   }
 
   // signIn with email/password
-  Future signIn(
+  Future signUp(
       {@required String email,
       @required String password,
       @required String firstname,
       @required String lastname}) async {
     try {
-      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-
-      // Create a new user on firestore
-      await _firestoreService.createUser(UserModel(
-          studentId: authResult.user.uid,
+      var authResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password).then((value) =>  _firestoreService.createUser(UserModel(
+          studentId: value.user.uid,
           emailAdd: email,
           fName: firstname,
-          lName: lastname));
-      User user = authResult.user;
-      
-      return user != null;
+          lName: lastname)
+          )
+          );
+      return authResult.user != null;
     } on SocketException {
-  
       setMessage('No Internet Connection');
     } catch (e) {
-      
-      setMessage(e.message);
+      setMessage(e.toString());
     }
     notifyListeners();
   }
@@ -49,11 +45,11 @@ class AuthService with ChangeNotifier {
   // create method to sign in with email/password
   Future loginWithEmail(String email, String password) async {
     try {
-      UserCredential authResult = await _auth.signInWithEmailAndPassword(
+     var authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       await _populateCurrentUser(authResult.user);
-      User user = authResult.user;
-      return user != null;
+      
+      return authResult.user != null;
     } on SocketException {
       setMessage('No Internet Connection');
     } catch (e) {
