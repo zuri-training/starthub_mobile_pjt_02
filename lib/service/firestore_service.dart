@@ -9,16 +9,16 @@ class FirestoreService {
   final CollectionReference _usersCollectionReference =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference _projectCollectionReference =
-      FirebaseFirestore.instance.collection('projects');
+      FirebaseFirestore.instance.collection('project');
   final StreamController<List<ProjectModel>> _projectController =
       StreamController<List<ProjectModel>>.broadcast();
 
-  Future createUser(UserModel user) async {
+    createUser(UserModel users) {
     try {
-      await _usersCollectionReference.doc(user.studentId).set(user.toJson());
+     _usersCollectionReference.doc(users.studentId).set(users.toJson());
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
       return e.toString();
     }
@@ -30,9 +30,9 @@ class FirestoreService {
       return UserModel.fromData(userData.data());
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
-      return e.message;
+      return e.toString();
     }
   }
 
@@ -43,20 +43,20 @@ class FirestoreService {
           .update(user.toJson());
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
-      return e.message;
+      return e.toString();
     }
   }
 
   Future createProject(ProjectModel project) async {
     try {
-      await _projectCollectionReference.add(project.toJson());
+      return await _projectCollectionReference.add(project.toJson());
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
-      return e.message;
+      return e.toString();
     }
   }
 
@@ -72,22 +72,22 @@ class FirestoreService {
       }
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
-      return e.message;
+      return e.toString();
     }
   }
 
   Future updateProject(ProjectModel project) async {
     try {
-      await _projectCollectionReference
+      return await _projectCollectionReference
           .doc(project.projectId)
           .update(project.toJson());
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
-      return e.message;
+      return e.toString();
     }
   }
 
@@ -96,9 +96,9 @@ class FirestoreService {
       return await _projectCollectionReference.doc(project.projectId).delete();
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
-      return e.message;
+      return e.toString();
     }
   }
 

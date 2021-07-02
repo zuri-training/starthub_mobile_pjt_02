@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:starthub_mobile_pjt/screen/project_screen.dart';
+import 'package:starthub_mobile_pjt/authentication/login_screen.dart';
+import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/screen/create_project.dart';
+import 'package:starthub_mobile_pjt/screen/homepage.dart';
 import 'package:starthub_mobile_pjt/widget/route_name.dart';
-
-import 'screen/login_screen.dart';
-import 'screen/signup_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -15,10 +14,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(routeName: settings.name, viewToShow: SignUp());
     
     case HomeViewRoute:
-      return _getPageRoute(routeName: settings.name, viewToShow: ProjectScreen());
+      return _getPageRoute(routeName: settings.name, viewToShow: Homepage());
     
-    // case CreateProjectViewRoute:
-    //   return _getPageRoute(routeName: settings.name, viewToShow: CreateProjectView());
+    case CreateProjectViewRoute:
+      return _getPageRoute(routeName: settings.name, viewToShow: CreateProject());
 
     default:
       return MaterialPageRoute(

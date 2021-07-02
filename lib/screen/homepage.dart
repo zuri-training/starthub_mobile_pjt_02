@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
+import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
+import 'package:starthub_mobile_pjt/models/home_view_model.dart';
 import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
-import 'signup_screen.dart';
 
-class ProjectScreen extends StatefulWidget {
+class Homepage extends StatefulWidget {
   @override
-  _ProjectScreenState createState() => _ProjectScreenState();
+  _HomepageState createState() => _HomepageState();
 }
 
-class _ProjectScreenState extends State<ProjectScreen> {
+class _HomepageState extends State<Homepage> {
   Icon customIcon = Icon(Icons.search);
   TextEditingController _searchController = TextEditingController();
 
@@ -76,9 +77,9 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final projectData = Provider.of<Projects>(context);
-    return ViewModelBuilder<StartUpViewModel>.reactive(
-        viewModelBuilder: () => StartUpViewModel(),
-        onModelReady: (model) => model.handleStartUpLogic(),
+    return ViewModelBuilder<HomeViewModel>.reactive(
+        viewModelBuilder: () =>HomeViewModel(),
+        onModelReady: (model) => model.listenToProject(),
         builder: (context, model, child) {
           return Scaffold(
               body: SafeArea(
@@ -152,29 +153,11 @@ class _ProjectScreenState extends State<ProjectScreen> {
                                 });
                               }),
                         ])),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 30.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUp()),
-                        );
-                      },
-                      child: Text('Signup to showcase your project!',
-                          style: GoogleFonts.inter(
-                            decoration: TextDecoration.underline,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: kPrimaryColor,
-                          )),
-                    ),
-                  ),
                 Expanded(
                   child: ProjectGrid(projectData.items),
                 ),
                 Expanded(
-                  flex: 1,
+                  
                   child: _searchProject.isEmpty
                       ? Center(
                           child: Text(

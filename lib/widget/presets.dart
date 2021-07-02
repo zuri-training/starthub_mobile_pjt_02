@@ -20,10 +20,12 @@ class NewButton extends StatelessWidget {
   NewButton({
     this.buttonText,
     this.onTap,
+    this.busy,
   });
 
   final String buttonText;
   final Function onTap;
+  final bool busy;
 
   @override
   Widget build(BuildContext context) {

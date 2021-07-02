@@ -14,6 +14,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
 
+
   void initState() {
     super.initState();
     _controller = AnimationController(
@@ -25,17 +26,18 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
     Timer(
       const Duration(seconds: 5),
+      
       () => Navigator.of(context).pushReplacement(
         PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 500),
             pageBuilder: (context, animation, __) {
               return ScaleTransition(
                 scale: _animation,
-                child: const Onboarding(),
+                child:  Onboarding(),
               );
-            }),
-      ),
-    );
+        
+      
+             } )));
   }
 
   @override

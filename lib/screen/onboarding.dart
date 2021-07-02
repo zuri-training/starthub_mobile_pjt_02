@@ -1,49 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked/stacked.dart';
+import 'package:starthub_mobile_pjt/authentication/login_screen.dart';
+import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
+import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 import '../constants.dart';
-import '../screen/project_screen.dart';
+
 
 class Onboarding extends StatelessWidget {
   const Onboarding({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: kPrimaryColor,
-      child: Column(
-        children: [
-          Text(
-            'StartHub',
-            style: GoogleFonts.raleway(
-              textStyle: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.w400,
-                color: kBackground,
+    Size size = MediaQuery.of(context).size;
+    return ViewModelBuilder<StartUpViewModel>.reactive(
+      viewModelBuilder: ()=> StartUpViewModel(),
+      onModelReady: (model) =>model.handleStartUpLogic() ,
+      builder: (context, model, child) {
+        return Container(
+          width: double.infinity,
+          height: size.height,
+          color: kPrimaryColor,
+          child: Column(
+            children: [
+              VerticalSpacing(of: 0.4,),
+              Text(
+                'StartHub',
+                style: GoogleFonts.raleway(
+                  textStyle: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.w400,
+                    color: kBackground,
+                  ),
+                ),
               ),
-            ),
-          ),
-          VerticalSpacing(),
-          Text(
-            'Showcasing products and talents',
-            style: GoogleFonts.openSans(
-              textStyle: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                color: kBackground,
+              VerticalSpacing(),
+              Text(
+                'Showcasing products and talents',
+                style: GoogleFonts.openSans(
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: kBackground,
+                  ),
+                ),
               ),
-            ),
+              VerticalSpacing(),
+              RoundedButton(
+                press: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProjectScreen()));
+                },
+                text: ("Let's get started"),
+                color: kBackground,
+                textColor: kPrimaryColor,
+              ),
+            ],
           ),
-          VerticalSpacing(),
-          RoundedButton(
-            press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProjectScreen()));
-            },
-            text: ("Let's get started"),
-            color: kBackground,
-            textColor: kPrimaryColor,
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
