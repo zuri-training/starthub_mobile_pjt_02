@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:starthub_mobile_pjt/models/login_view_model.dart';
+import 'package:starthub_mobile_pjt/screen/signup_screen.dart';
+import 'package:starthub_mobile_pjt/widget/presets.dart';
 
 import '../constants.dart';
-import '../presets.dart';
-import 'sign_up.dart';
+
 
 class LogIn extends StatefulWidget {
   @override
@@ -17,6 +18,8 @@ class _LogInState extends State<LogIn> {
   final _formkey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
+  get kOrLoginTextStyle => null;
 
   @override
   void initState() {

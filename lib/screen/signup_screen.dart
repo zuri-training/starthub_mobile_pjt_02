@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:starthub_mobile_pjt/models/signup_view_model.dart';
+import 'package:starthub_mobile_pjt/widget/presets.dart';
 
 import '../constants.dart';
-import '../presets.dart';
+
 import 'login_screen.dart';
 
 class SignUp extends StatefulWidget {
@@ -23,6 +24,8 @@ class _SignUpState extends State<SignUp> {
   TextEditingController firstNameController;
   TextEditingController lastNameController;
   TextEditingController _confirmUserPasswordController;
+
+  get kOrLoginTextStyle => null;
 
   @override
   void initState() {

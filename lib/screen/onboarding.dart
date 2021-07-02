@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/authentication/login_screen.dart';
 import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 import '../constants.dart';
