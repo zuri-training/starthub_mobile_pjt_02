@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
+import 'package:starthub_mobile_pjt/wrapper.dart';
 import 'onboarding.dart';
 
 class Splash extends StatefulWidget {
@@ -30,40 +29,30 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         () => Navigator.of(context).pushReplacement(PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 500),
             pageBuilder: (context, animation, __) {
-              return ScaleTransition(
-                scale: _animation,
-                child: Onboarding(),
-              );
+              return Wrapper();
             })));
   }
 
   @override
   Widget build(BuildContext context) {
     screenAwareSize(dynamic i, BuildContext context) {}
-    return ViewModelBuilder<StartUpViewModel>.reactive(
-        viewModelBuilder: () => StartUpViewModel(),
-        
-        builder: (context, model, child) {
-          return Container(
-            color: Colors.white,
-            child: ScaleTransition(
-              scale: _animation,
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                    image: const AssetImage(
-                        'assets/images/starthub-logo-removebg-preview_1.png'),
-                    height: screenAwareSize(80, context),
-                    width: screenAwareSize(66.68, context),
-                  ),
-                ],
-              ),
+    return Container(
+      color: Colors.white,
+      child: ScaleTransition(
+        scale: _animation,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: const AssetImage(
+                  'assets/images/starthub-logo-removebg-preview_1.png'),
+              height: screenAwareSize(80, context),
+              width: screenAwareSize(66.68, context),
             ),
-          );
-        },
-        onModelReady: (model) => model.handleStartUpLogic(),
-        );
+          ],
+        ),
+      ),
+    );
   }
 }

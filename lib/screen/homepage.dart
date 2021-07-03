@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
-import 'package:starthub_mobile_pjt/models/home_view_model.dart';
-import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
@@ -77,11 +73,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     final projectData = Provider.of<Projects>(context);
-    return ViewModelBuilder<HomeViewModel>.reactive(
-        viewModelBuilder: () =>HomeViewModel(),
-        onModelReady: (model) => model.listenToProject(),
-        builder: (context, model, child) {
-          return Scaffold(
+    return Scaffold(
               body: SafeArea(
             child: Column(
               children: <Widget>[
@@ -156,23 +148,22 @@ class _HomepageState extends State<Homepage> {
                 Expanded(
                   child: ProjectGrid(projectData.items),
                 ),
-                Expanded(
+                // Expanded(
                   
-                  child: _searchProject.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No Records Found',
-                            style: GoogleFonts.inter(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      : ProjectGrid(_searchProject),
-                )
+                //   child: _searchProject.isEmpty
+                //       ? Center(
+                //           child: Text(
+                //             'No Records Found',
+                //             style: GoogleFonts.inter(
+                //               fontSize: 23,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           ),
+                //         )
+                //       : ProjectGrid(_searchProject),
+                // )
               ],
             ),
           ));
-        });
   }
 }

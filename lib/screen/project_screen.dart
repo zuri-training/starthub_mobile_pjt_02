@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked/stacked.dart';
 import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
-import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
@@ -169,20 +167,20 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 Expanded(
                   child: ProjectGrid(projectData.items),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: _searchProject.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No Records Found',
-                            style: GoogleFonts.inter(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      : ProjectGrid(_searchProject),
-                )
+                // Expanded(
+                //   flex: 1,
+                //   child: _searchProject.isEmpty
+                //       ? Center(
+                //           child: Text(
+                //             'No Records Found',
+                //             style: GoogleFonts.inter(
+                //               fontSize: 23,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           ),
+                //         )
+                //       : ProjectGrid(_searchProject),
+                // )
               ],
             ),
           ));

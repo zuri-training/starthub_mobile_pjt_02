@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/models/login_view_model.dart';
+import 'package:provider/provider.dart';
+import 'package:starthub_mobile_pjt/locator.dart';
+import 'package:starthub_mobile_pjt/screen/homepage.dart';
+import 'package:starthub_mobile_pjt/service/authentication.dart';
+import 'package:starthub_mobile_pjt/service/dialog_service.dart';
+import 'package:starthub_mobile_pjt/service/navigation_service.dart';
+
 
 import '../constants.dart';
 import '../presets.dart';
@@ -17,6 +22,8 @@ class _LogInState extends State<LogIn> {
   final _formkey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
+  final DialogService _dialogService = locator<DialogService>();
 
   @override
   void initState() {
@@ -56,7 +63,7 @@ class _LogInState extends State<LogIn> {
     );
   }
 
-  Widget _submitButton(Function pressed) {
+  Widget _submitButton({Function pressed}) {
     return NewButton(
       buttonText: 'Log In',
       onTap: pressed,
@@ -65,94 +72,97 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AuthService>(context);
     Size screenSize = MediaQuery.of(context).size;
-    return ViewModelBuilder<LoginViewModel>.reactive(
-        viewModelBuilder: () => LoginViewModel(),
-        builder: (context, model, child) {
-          return Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                elevation: 0.0,
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                    size: 35.0,
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 35.0,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+        body: SafeArea(
+          child: Form(
+            key: _formkey,
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: screenSize.height),
+                child: SingleChildScrollView(
+                  physics: ClampingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      NewHeaders(
+                        headerText: 'StartHub',
+                      ),
+                      _nameField(),
+                      SizedBox(height: 24),
+                      _passwordField(),
+                      SizedBox(height: 32),
+                      _submitButton(pressed: () async {
+                        if (_formkey.currentState.validate()) {
+                          _formkey.currentState.save();
+                          print("Email Address: ${emailController.text}" +
+                              ' | ' +
+                              "Password: ${passwordController.text}");
+                          var result = await provider.login(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                          );
+                          if (result == null) {
+                            return _dialogService.showDialog(
+                                title: "Login Failure",
+                                description:
+                                    'General Login failure. Please try again later');
+                          } else {
+                            return Homepage();
+                          }
+                        }
+                      }),
+                      SizedBox(height: 15),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            NewInkWell(text: 'Forget Password'),
+                            SizedBox(height: 50)
+                          ]),
+                      SizedBox(height: 15),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('or login in', style: kOrLoginTextStyle),
+                            NewInkWell(
+                                text: 'Google', icon: FontAwesomeIcons.google),
+                            NewInkWell(
+                                text: 'Github', icon: FontAwesomeIcons.github)
+                          ]),
+                      SizedBox(height: 31),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Don\'t have an account?',
+                                style: kOrLoginTextStyle),
+                            SizedBox(width: 5),
+                            InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignUp())),
+                                child: Text('Create an account',
+                                    style: kInkWellTextStyle))
+                          ]),
+                    ],
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
-              body: SafeArea(
-                child: Form(
-                  key: _formkey,
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: screenSize.height),
-                      child: SingleChildScrollView(
-                        physics: ClampingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            NewHeaders(
-                              headerText: 'StartHub',
-                            ),
-                            _nameField(),
-                            SizedBox(height: 24),
-                            _passwordField(),
-                            SizedBox(height: 32),
-                            _submitButton(() {
-                              if (_formkey.currentState.validate()) {
-                                _formkey.currentState.save();
-                                print("Email Address: ${emailController.text}");
-                                print("Password: ${passwordController.text}");
-                              }
-                              model.login(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                            }),
-                            SizedBox(height: 15),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  NewInkWell(text: 'Forget Password'),
-                                  SizedBox(height: 50)
-                                ]),
-                            SizedBox(height: 15),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('or login in', style: kOrLoginTextStyle),
-                                  NewInkWell(
-                                      text: 'Google',
-                                      icon: FontAwesomeIcons.google),
-                                  NewInkWell(
-                                      text: 'Github',
-                                      icon: FontAwesomeIcons.github)
-                                ]),
-                            SizedBox(height: 31),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Don\'t have an account?',
-                                      style: kOrLoginTextStyle),
-                                  SizedBox(width: 5),
-                                  InkWell(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SignUp())),
-                                      child: Text('Create an account',
-                                          style: kInkWellTextStyle))
-                                ]),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ));
-        });
+            ),
+          ),
+        ));
   }
 }
