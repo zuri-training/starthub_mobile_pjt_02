@@ -15,7 +15,7 @@ class ProjectDetailScreen extends StatelessWidget {
     final loadedProject = Provider.of<Projects>(context).items.firstWhere(
           (project) => project.projectId == id,
         );
-    final loadedUser = Provider.of<User>(context)
+    final loadedUser = Provider.of<Users>(context)
         .userItems
         .firstWhere((student) => student.studentId == id);
     // final int index = 0;

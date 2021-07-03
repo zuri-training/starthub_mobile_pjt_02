@@ -18,7 +18,7 @@ class UserModel {
   this.studentId,
   });
 
-  UserModel.fromData(Map<String, dynamic> data)
+  UserModel.fromData(Map<String, String> data)
       : studentId = data['studentId'],
         fName = data['firstname'],
         lName = data['lastname'],
@@ -26,7 +26,7 @@ class UserModel {
         bio = data['bio'],
         emailAdd = data['emailAdd'];
 
-    Map<String, dynamic> toJson() {
+    Map<String, String> toJson() {
     return {
       studentId: 'studentId',
       fName: 'firstname',

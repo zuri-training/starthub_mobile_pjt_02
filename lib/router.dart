@@ -3,6 +3,7 @@ import 'package:starthub_mobile_pjt/authentication/login_screen.dart';
 import 'package:starthub_mobile_pjt/authentication/sign_up.dart';
 import 'package:starthub_mobile_pjt/screen/create_project.dart';
 import 'package:starthub_mobile_pjt/screen/homepage.dart';
+import 'package:starthub_mobile_pjt/screen/onboarding.dart';
 import 'package:starthub_mobile_pjt/widget/route_name.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -15,6 +16,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     
     case HomeViewRoute:
       return _getPageRoute(routeName: settings.name, viewToShow: Homepage());
+
+    case OnboardingView:
+      return _getPageRoute(routeName: settings.name, viewToShow: Onboarding());
     
     case CreateProjectViewRoute:
       return _getPageRoute(routeName: settings.name, viewToShow: CreateProject());

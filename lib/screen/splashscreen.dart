@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:starthub_mobile_pjt/wrapper.dart';
 import 'onboarding.dart';
 
 class Splash extends StatefulWidget {
@@ -14,7 +15,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
 
-
   void initState() {
     super.initState();
     _controller = AnimationController(
@@ -25,23 +25,17 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     _controller.forward();
 
     Timer(
-      const Duration(seconds: 5),
-      
-      () => Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
+        const Duration(seconds: 5),
+        () => Navigator.of(context).pushReplacement(PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 500),
             pageBuilder: (context, animation, __) {
-              return ScaleTransition(
-                scale: _animation,
-                child:  Onboarding(),
-              );
-        
-      
-             } )));
+              return Wrapper();
+            })));
   }
 
   @override
   Widget build(BuildContext context) {
+    screenAwareSize(dynamic i, BuildContext context) {}
     return Container(
       color: Colors.white,
       child: ScaleTransition(
@@ -51,7 +45,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              image: const AssetImage('assets/images/starthub-logo-removebg-preview_1.png'),
+              image: const AssetImage(
+                  'assets/images/starthub-logo-removebg-preview_1.png'),
               height: screenAwareSize(80, context),
               width: screenAwareSize(66.68, context),
             ),
@@ -60,6 +55,4 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       ),
     );
   }
-
-  screenAwareSize(dynamic i, BuildContext context) {}
 }

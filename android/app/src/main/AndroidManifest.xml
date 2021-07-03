@@ -1,9 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.starthub_mobile_pjt">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="starthub_mobile_pjt"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "514535378534",
-    "project_id": "starthub-874f8",
-    "storage_bucket": "starthub-874f8.appspot.com"
+    "project_number": "1049320104848",
+    "project_id": "starthub-989db",
+    "storage_bucket": "starthub-989db.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:514535378534:android:4e0dc16c69d627534ba7a7",
+        "mobilesdk_app_id": "1:1049320104848:android:b7029e8b31ee89ee180915",
         "android_client_info": {
-          "package_name": "com.example.starthub_mobile_pjt"
+          "package_name": "com.starthub.starthub_mobile_pjt"
         }
       },
       "oauth_client": [
         {
-          "client_id": "514535378534-c0i84n76vsgka5nhg8sag9aj1hheqrod.apps.googleusercontent.com",
+          "client_id": "1049320104848-9733feeunut9d560hhatrabqh7h8fjg6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCiJfza3pw--DEjqDFE_bFQn8IYW0AaVhY"
+          "current_key": "AIzaSyA2LXiyufT7_IoTWxlKa9J0q0YYj2tKu6Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "514535378534-c0i84n76vsgka5nhg8sag9aj1hheqrod.apps.googleusercontent.com",
+              "client_id": "1049320104848-9733feeunut9d560hhatrabqh7h8fjg6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
