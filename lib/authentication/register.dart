@@ -8,21 +8,21 @@ import 'package:starthub_mobile_pjt/service/navigation_service.dart';
 import '../constants.dart';
 import '../locator.dart';
 import '../presets.dart';
-import 'login_screen.dart';
+import 'sign_in.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _RegisterState extends State<Register> {
   final DialogService _dialogService = locator<DialogService>();
-  final NavigationService _navigationService = locator<NavigationService>();
   bool isChecked = false;
   final _formkey = GlobalKey<FormState>();
   bool _passwordVisible;
+  final provider = AuthService();
   TextEditingController passwordController;
   TextEditingController emailController;
   TextEditingController firstNameController;
@@ -72,10 +72,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   Widget _passwordField() {
-    return TextField(
+    return TextFormField(
         keyboardType: TextInputType.text,
         controller: passwordController,
         obscureText: _passwordVisible,
+        validator: (value) => value.length < 6 ? "Cannot be less than 6 chars" : null,
         decoration: InputDecoration(
             hintText: 'Password',
             hintStyle: kHintTextStyle,
@@ -90,10 +91,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   Widget _confirmPasswordField() {
-    return TextField(
+    return TextFormField(
         keyboardType: TextInputType.text,
         controller: _confirmUserPasswordController,
         obscureText: _passwordVisible,
+        validator: (value) => value.length < 6 ? "Cannot be less than 6 chars" : null,
         decoration: InputDecoration(
             hintText: 'Confirm password',
             hintStyle: kHintTextStyle,
@@ -116,7 +118,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AuthService>(context);
+    
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
@@ -173,18 +175,16 @@ class _SignUpState extends State<SignUp> {
                             print("Email Address: ${emailController.text}" +
                                 ' | ' +
                                 "Password: ${passwordController.text}");
-                            var result = await provider.register(
+                            dynamic result = await provider.register(
                                 email: emailController.text.trim(),
                                 password: passwordController.text.trim(),
                                 firstname: firstNameController.text.trim(),
                                 lastname: lastNameController.text.trim());
-                            if (result != null) {
-                              return LogIn();
-                            } else {
+                            if (result == null) {
                               return _dialogService.showDialog(
-                                  title: "Signup Failure",
+                                  title: "Register Failure",
                                   description:
-                                      'General signup failure. Please try again later');
+                                      'General Register failure. Please try again later');
                             }
                           }
                         }),
@@ -199,7 +199,7 @@ class _SignUpState extends State<SignUp> {
                                   onTap: () => Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => LogIn())),
+                                          builder: (context) => Register())),
                                   child: Text(
                                     'Sign in',
                                     style: kInkWellTextStyle,
@@ -210,7 +210,7 @@ class _SignUpState extends State<SignUp> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('or signup with', style: kOrLoginTextStyle),
+                            Text('or Register with', style: kOrLoginTextStyle),
                             NewInkWell(
                                 text: 'Google', icon: FontAwesomeIcons.google),
                             NewInkWell(
