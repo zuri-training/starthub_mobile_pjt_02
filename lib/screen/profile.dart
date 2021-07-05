@@ -1,6 +1,12 @@
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/models/userModel.dart';
+import 'package:starthub_mobile_pjt/service/authentication.dart';
+import 'package:starthub_mobile_pjt/service/firestore_service.dart';
+import 'package:starthub_mobile_pjt/widget/loading.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 
 import '../constants.dart';
@@ -16,125 +22,138 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  UserModel user;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            "Profile View",
-            style: TextStyle(
-                color: kTextColor,
-                fontFamily: kFont,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        backgroundColor: kBackground,
-        elevation: 0,
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(color: kBackground),
-        height: size.height,
-        width: size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                      'assets/images/starthub-logo-removebg-preview_1.png',
-                      width: size.width * 0.3,
-                      height: size.height * 0.1),
-                  Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: kPrimaryColor)),
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            return EditProfile();
-                          }));
-                        },
-                        child: Row(children: [
-                          Icon(Icons.add, color: kTextColor),
-                          Text(
-                            'Edit Profile',
-                            style: TextStyle(color: kTextColor),
-                          )
-                        ])),
-                  )
-                ],
-              ),
-              Container(
-                width: size.width,
-                height: size.height * 0.3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  color: kPrimaryColor,
+    final user = Provider.of<User>(context);
+    // print('user: $user');
+    return StreamBuilder<UserModel>(
+        stream: FirestoreService(uid: user.uid).listenToUser,
+        
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            UserModel userModel = snapshot.data;
+            
+            return Scaffold(
+              appBar: AppBar(
+                title: Center(
+                  child: Text(
+                    "Profile View",
+                    style: TextStyle(
+                        color: kTextColor,
+                        fontFamily: kFont,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-                child: Column(children: [
-                  VerticalSpacing(),
-                  GestureDetector(
-                    onTap: () {},
-                    child: ClipOval(
-                      child: Image.asset(
-                        "assets/images/dammy.JPG",
-                        width: size.width * 0.25,
-                        height: size.height * 0.14,
-                        fit: BoxFit.cover,
+                backgroundColor: kBackground,
+                elevation: 0,
+              ),
+              body: Container(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(color: kBackground),
+                height: size.height,
+                width: size.width,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                              'assets/images/starthub-logo-removebg-preview_1.png',
+                              width: size.width * 0.3,
+                              height: size.height * 0.1),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: kPrimaryColor)),
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                    return EditProfile();
+                                  }));
+                                },
+                                child: Row(children: [
+                                  Icon(Icons.add, color: kTextColor),
+                                  Text(
+                                    'Edit Profile',
+                                    style: TextStyle(color: kTextColor),
+                                  )
+                                ])),
+                          )
+                        ],
                       ),
-                    ),
+                      Container(
+                        width: size.width,
+                        height: size.height * 0.3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          color: kPrimaryColor,
+                        ),
+                        child: Column(children: [
+                          VerticalSpacing(),
+                          GestureDetector(
+                            onTap: () {},
+                            child: userModel.imageUrl!= null?ClipOval(
+                              child: Image.asset(
+                                    userModel.imageUrl,
+                                    width: size.width * 0.25,
+                                    height: size.height * 0.14,
+                                    fit: BoxFit.cover,
+                                  ) 
+                            ) : 
+                                  CircleAvatar(
+                                    backgroundColor: kPrimaryColor,
+                                  ) ,
+                          ),
+                          Text(
+                            userModel.fName +' '+ userModel.lName,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          VerticalDivider(),
+                          Text(
+                            userModel.emailAdd,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          VerticalSpacing(),
+                          Text(
+                            userModel.bio,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ]),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          NavItem(title: 'Projects', press: () {}, number: 26),
+                          NavItem(title: 'Reviews', press: () {}, number: 25),
+                        ],
+                      ),
+                      Divider(),
+
+                      // ProjectGrid(),
+                    ],
                   ),
-                   Text(
-                    user.fName + user.lName,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  VerticalDivider(),
-                  Text(
-                    user.emailAdd,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  VerticalSpacing(),
-                  Text(
-                    user.bio,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ]),
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  NavItem(title: 'Projects', press: () {}, number: 26),
-                  NavItem(title: 'Reviews', press: () {}, number: 25),
-                ],
-              ),
-              Divider(),
-              
-              // ProjectGrid(),
-              
-            ],
-          ),
-        ),
-      ),
-    );
+            );
+          } else {
+            return LoadingWidget();
+          }
+        });
   }
 }
 

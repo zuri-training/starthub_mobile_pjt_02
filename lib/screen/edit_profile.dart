@@ -17,7 +17,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  File _image;
+  PickedFile _image;
   final _picker = ImagePicker();
   FirestoreService firestoreService;
 
@@ -77,7 +77,7 @@ class _EditProfileState extends State<EditProfile> {
         await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
-      _image = image as File;
+      _image = image;
     });
   }
 
@@ -86,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
         await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
-      _image = image as File;
+      _image = image;
     });
   }
 
@@ -161,7 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.file(
-                                _image,
+                                File(_image as String),
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.fitHeight,

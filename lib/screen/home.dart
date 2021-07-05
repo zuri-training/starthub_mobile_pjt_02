@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
+import 'package:starthub_mobile_pjt/models/userModel.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/screen/profile.dart';
+import 'package:starthub_mobile_pjt/service/firestore_service.dart';
+import 'package:starthub_mobile_pjt/widget/loading.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
@@ -75,99 +79,58 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final projectData = Provider.of<Projects>(context);
     Size size = MediaQuery.of(context).size;
-
-    _showSearchBox() {
-      scaffoldState.currentState.showBottomSheet<void>((BuildContext context) {
-        return Container(
-            color: Colors.white,
-            width: size.width,
-            height: size.height * 0.45,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.circular(12)),
-            child: Container(
-              height: 40,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 10.0,
-                ),
-                child: TextField(
-                  onChanged: (value) {
-                    _searchController.text;
-                    // setState(() {
-                    //   _searchProject =
-                    //       projectData.searchQuery(value);
-                    // });
-                  },
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                          width: 2.0,
-                        ),
+    final user = Provider.of<User>(context);
+    return StreamBuilder<UserModel>(
+        stream: FirestoreService(uid: user.uid).listenToUser,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            UserModel userModel = snapshot.data;
+            return Scaffold(
+                body: SafeArea(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 30, right: 30.0),
+                          child: Row(children: [
+                            Text('Welcome ${userModel.fName}',
+                                style: GoogleFonts.inter(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                )),
+                          ])),
+                      VerticalSpacing(),
+                      Expanded(
+                        child: ProjectGrid(projectData.items),
                       ),
-                      hintText: 'Search for project/intern',
-                      hintStyle: TextStyle(fontSize: 17.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  textAlign: TextAlign.center,
-                  autofocus: true,
-                  textInputAction: TextInputAction.go,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15.0,
+                      // Expanded(
+
+                      //   child: _searchProject.isEmpty
+                      //       ? Center(
+                      //           child: Text(
+                      //             'No Records Found',
+                      //             style: GoogleFonts.inter(
+                      //               fontSize: 23,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //         )
+                      //       : ProjectGrid(_searchProject),
+                      // )
+                    ],
                   ),
                 ),
-              ),
-            ));
-      });
-    }
-
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.only(top: 10, left: 30, right: 30.0),
-                child: Row(children: [
-                  Text('Welcome Intern!',
-                      style: GoogleFonts.inter(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                      )),
-                ])),
-            VerticalSpacing(),
-            Expanded(
-              child: ProjectGrid(projectData.items),
-            ),
-            // Expanded(
-
-            //   child: _searchProject.isEmpty
-            //       ? Center(
-            //           child: Text(
-            //             'No Records Found',
-            //             style: GoogleFonts.inter(
-            //               fontSize: 23,
-            //               fontWeight: FontWeight.bold,
-            //             ),
-            //           ),
-            //         )
-            //       : ProjectGrid(_searchProject),
-            // )
-          ],
-        ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(),
-    );
+                bottomNavigationBar: CustomBottomNavBar());
+          } else {
+            return LoadingWidget();
+          }
+        });
   }
 }
 
 class CustomBottomNavBar extends StatelessWidget {
-  
-  final Icon customIcon = Icon(Icons.search);
   final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -188,51 +151,52 @@ class CustomBottomNavBar extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Home())),
                   ),
                   NavItem(
-                      icon: Icons.search,
-                      title: 'Search',
-                      press: () {
-                        Scaffold.of(context).showBottomSheet(
-                          (context) => Container(
-                            padding: EdgeInsets.only(top: 20, left: 10, right: 10),
-                            width: size.width,
-                            height: size.height*0.35,
-                            decoration: BoxDecoration(
+                    icon: Icons.search,
+                    title: 'Search',
+                    press: () {
+                      Scaffold.of(context).showBottomSheet(
+                        (context) => Container(
+                          padding:
+                              EdgeInsets.only(top: 20, left: 10, right: 10),
+                          width: size.width,
+                          height: size.height * 0.35,
+                          decoration: BoxDecoration(
                               color: Colors.grey[50],
-                borderRadius: BorderRadiusDirectional.circular(12)),
-                child: TextField(
-                  
-                  onChanged: (value) {
-                    _searchController.text;
-                    // setState(() {
-                    //   _searchProject =
-                    //       projectData.searchQuery(value);
-                    // });
-                  },
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: BorderSide(
-                          color: kPrimaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      hintText: 'Search for project/intern',
-                      hintStyle: TextStyle(fontSize: 17.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                  textAlign: TextAlign.start,
-                  // autofocus: true,
-                  //textInputAction: TextInputAction.go,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15.0,
-                  ),
-                ),
-      
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(12)),
+                          child: TextField(
+                            onChanged: (value) {
+                              _searchController.text;
+                              // setState(() {
+                              //   _searchProject =
+                              //       projectData.searchQuery(value);
+                              // });
+                            },
+                            controller: _searchController,
+                            decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: BorderSide(
+                                    color: kPrimaryColor,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                hintText: 'Search for project/intern',
+                                hintStyle: TextStyle(fontSize: 17.0),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0))),
+                            textAlign: TextAlign.start,
+                            // autofocus: true,
+                            //textInputAction: TextInputAction.go,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.0,
+                            ),
                           ),
-                        );
-                      }),
+                        ),
+                      );
+                    },
+                  ),
                   NavItem(
                       icon: Icons.people_rounded,
                       title: 'Profile',
