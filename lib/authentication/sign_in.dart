@@ -2,27 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:starthub_mobile_pjt/locator.dart';
-import 'package:starthub_mobile_pjt/screen/homepage.dart';
+import 'package:starthub_mobile_pjt/screen/home.dart';
 import 'package:starthub_mobile_pjt/service/authentication.dart';
 import 'package:starthub_mobile_pjt/service/dialog_service.dart';
 import 'package:starthub_mobile_pjt/service/navigation_service.dart';
 
-
 import '../constants.dart';
 import '../presets.dart';
-import 'sign_up.dart';
+import 'register.dart';
 
-class LogIn extends StatefulWidget {
+class SignIn extends StatefulWidget {
   @override
-  _LogInState createState() => _LogInState();
+  _SignInState createState() => _SignInState();
 }
 
-class _LogInState extends State<LogIn> {
+class _SignInState extends State<SignIn> {
   bool _passwordVisible;
   final _formkey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-
+  final provider = AuthService();
   final DialogService _dialogService = locator<DialogService>();
 
   @override
@@ -72,7 +71,7 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AuthService>(context);
+    
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
@@ -111,19 +110,17 @@ class _LogInState extends State<LogIn> {
                           print("Email Address: ${emailController.text}" +
                               ' | ' +
                               "Password: ${passwordController.text}");
-                          var result = await provider.login(
+                         dynamic result = await provider.login(
                             emailController.text.trim(),
                             passwordController.text.trim(),
                           );
-                          if (result == null) {
-                            return _dialogService.showDialog(
-                                title: "Login Failure",
-                                description:
-                                    'General Login failure. Please try again later');
-                          } else {
-                            return Homepage();
-                          }
+                          if(result == null) {
+                          return _dialogService.showDialog(
+                              title: "SignIn Failure",
+                              description:
+                                  'General SignIn failure. Please try again later');
                         }
+                        } 
                       }),
                       SizedBox(height: 15),
                       Row(
@@ -136,7 +133,7 @@ class _LogInState extends State<LogIn> {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('or login in', style: kOrLoginTextStyle),
+                            Text('or SignIn in', style: kHintTextStyle),
                             NewInkWell(
                                 text: 'Google', icon: FontAwesomeIcons.google),
                             NewInkWell(
@@ -147,13 +144,13 @@ class _LogInState extends State<LogIn> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('Don\'t have an account?',
-                                style: kOrLoginTextStyle),
+                                style: kHintTextStyle),
                             SizedBox(width: 5),
                             InkWell(
                                 onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignUp())),
+                                        builder: (context) => Register())),
                                 child: Text('Create an account',
                                     style: kInkWellTextStyle))
                           ]),

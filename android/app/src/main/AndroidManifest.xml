@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="starthub_mobile_pjt"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/icon">
         <activity
             android:name=".MainActivity"
