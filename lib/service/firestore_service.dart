@@ -17,8 +17,8 @@ class FirestoreService {
 
   FirestoreService({this.uid});
 
-  Future createUser(String fName, String lName, String imageUrl, String bio,
-      String email, String password) async {
+  Future createUser({String fName, String lName, String imageUrl, String bio,
+      String email, String password, String link}) async {
     return await _usersCollectionReference.doc(uid).set({
       "studentId": uid,
       'firstname': fName,
@@ -26,7 +26,8 @@ class FirestoreService {
       'imageUrl': imageUrl,
       'bio': bio,
       'email': email,
-      'password': password
+      'password': password,
+      'link': link
     });
   }
 
@@ -45,12 +46,14 @@ class FirestoreService {
   Future updateUser(UserModel user) async {
     try {
       return await _usersCollectionReference.doc(user.studentId).update({
-        "studentId": user.studentId,
-        'firstName': user.fName,
-        'lastName': user.lName,
-        'imageUrl': user.imageUrl,
-        'bio': user.bio,
-        'emailAdd': user.emailAdd
+        "studentId": uid,
+      'firstname': user.fName,
+      'lastname': user.lName,
+      'imageUrl': user.imageUrl,
+      'bio': user.bio,
+      'email': user.emailAdd,
+      'link': user.link
+
       });
     } catch (e) {
       if (e is PlatformException) {

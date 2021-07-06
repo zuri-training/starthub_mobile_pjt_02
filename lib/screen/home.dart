@@ -93,10 +93,10 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(
                               top: 10, left: 30, right: 30.0),
                           child: Row(children: [
-                            Text('Welcome ${userModel.fName}',
+                            Text('Welcome ${userModel.fName}'.toUpperCase(),
                                 style: GoogleFonts.inter(
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w900,
+                                  fontWeight: FontWeight.w700,
                                 )),
                           ])),
                       VerticalSpacing(),
