@@ -6,6 +6,8 @@ import 'package:starthub_mobile_pjt/screen/welcome.dart';
 
 import 'package:starthub_mobile_pjt/widget/presets.dart';
 
+import '../constants.dart';
+
 class Onboarding extends StatefulWidget {
   static String id = "Onboarding";
   @override
@@ -13,7 +15,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  static const kPrimaryColor = Color(0xFF363A99);
+  
 
   final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);

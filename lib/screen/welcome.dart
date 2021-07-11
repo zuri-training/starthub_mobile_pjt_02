@@ -3,13 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:starthub_mobile_pjt/screen/sign_in.dart';
 import 'package:starthub_mobile_pjt/widget/presets.dart';
 
+import '../constants.dart';
 import 'coming_soon.dart';
 
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key key}) : super(key: key);
 
-  static const kPrimaryColor = Color(0xFF363A99);
+ 
 
   @override
   Widget build(BuildContext context) {

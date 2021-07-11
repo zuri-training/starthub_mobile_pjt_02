@@ -23,6 +23,7 @@ class _EnterEmailState extends State<EnterEmail> {
   Widget _submitButton() {
     return NewButton(
         buttonText: 'Reset Password',
+        textColor: kPrimaryColor,
         onTap: () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => CheckMail())));
   }
