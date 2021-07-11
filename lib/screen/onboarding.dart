@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
 import 'package:starthub_mobile_pjt/screen/project_screen.dart';
 import '../constants.dart';
 
@@ -12,11 +10,7 @@ class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return ViewModelBuilder<StartUpViewModel>.reactive(
-      viewModelBuilder: ()=> StartUpViewModel(),
-      onModelReady: (model) =>model.handleStartUpLogic() ,
-      builder: (context, model, child) {
-        return Container(
+    return Container(
           width: double.infinity,
           height: size.height,
           color: kPrimaryColor,
@@ -56,7 +50,5 @@ class Onboarding extends StatelessWidget {
             ],
           ),
         );
-      }
-    );
   }
 }

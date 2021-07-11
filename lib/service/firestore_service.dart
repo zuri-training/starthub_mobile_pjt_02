@@ -1,27 +1,34 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/models/userModel.dart';
 
 class FirestoreService {
+  final String uid;
   final CollectionReference _usersCollectionReference =
-      FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('user');
   final CollectionReference _projectCollectionReference =
       FirebaseFirestore.instance.collection('project');
   final StreamController<List<ProjectModel>> _projectController =
       StreamController<List<ProjectModel>>.broadcast();
 
-    createUser(UserModel users) {
-    try {
-     _usersCollectionReference.doc(users.studentId).set(users.toJson());
-    } catch (e) {
-      if (e is PlatformException) {
-        return e.toString();
-      }
-      return e.toString();
-    }
+  FirestoreService({this.uid});
+
+  Future createUser({String fName, String lName, String imageUrl, String bio,
+      String email, String password, String link}) async {
+    return await _usersCollectionReference.doc(uid).set({
+      "studentId": uid,
+      'firstname': fName,
+      'lastname': lName,
+      'imageUrl': imageUrl,
+      'bio': bio,
+      'email': email,
+      'password': password,
+      'link': link
+    });
   }
 
   Future getUser(String studentId) async {
@@ -38,9 +45,16 @@ class FirestoreService {
 
   Future updateUser(UserModel user) async {
     try {
-      return await _usersCollectionReference
-          .doc(user.studentId)
-          .update(user.toJson());
+      return await _usersCollectionReference.doc(user.studentId).update({
+        "studentId": uid,
+      'firstname': user.fName,
+      'lastname': user.lName,
+      'imageUrl': user.imageUrl,
+      'bio': user.bio,
+      'email': user.emailAdd,
+      'link': user.link
+
+      });
     } catch (e) {
       if (e is PlatformException) {
         return e.toString();
@@ -51,7 +65,16 @@ class FirestoreService {
 
   Future createProject(ProjectModel project) async {
     try {
-      return await _projectCollectionReference.add(project.toJson());
+      return await _projectCollectionReference
+          .doc(project.projectId.toString())
+          .set({
+        'projectId': project.projectId,
+        'projectName': project.projectName,
+        'projectInfo': project.projectInfo,
+        'imgUrl': project.imgUrl,
+        'projectOwners': project.projectOwners,
+        'tags': project.tags
+      });
     } catch (e) {
       if (e is PlatformException) {
         return e.toString();
@@ -80,9 +103,14 @@ class FirestoreService {
 
   Future updateProject(ProjectModel project) async {
     try {
-      return await _projectCollectionReference
-          .doc(project.projectId)
-          .update(project.toJson());
+      return await _projectCollectionReference.doc(project.projectId).update({
+        'projectId': project.projectId,
+        'projectName': project.projectName,
+        'projectInfo': project.projectInfo,
+        'imgUrl': project.imgUrl,
+        'projectOwners': project.projectOwners,
+        'tags': project.tags
+      });
     } catch (e) {
       if (e is PlatformException) {
         return e.toString();
@@ -102,7 +130,7 @@ class FirestoreService {
     }
   }
 
-  Stream listenToProject() {
+  Stream<List<ProjectModel>> listenToProject() {
     _projectCollectionReference.snapshots().listen((projectsSnapshot) {
       if (projectsSnapshot.docs.isNotEmpty) {
         var projects = projectsSnapshot.docs
@@ -115,5 +143,26 @@ class FirestoreService {
     });
 
     return _projectController.stream;
+  }
+
+  //usermodel from snapshot
+  UserModel _userModelFromSnapshot(DocumentSnapshot snapshot) {
+    return UserModel(
+      studentId: uid,
+      emailAdd: snapshot.get('email'),
+      fName: snapshot.get('firstname'),
+      lName: snapshot.get('lastname'),
+      bio: snapshot.get('bio'),
+      imageUrl: snapshot.get('imageUrl'),
+      
+    );
+  }
+
+  //get user doc stream
+  Stream<UserModel> get listenToUser {
+    return _usersCollectionReference
+        .doc(uid)
+        .snapshots()
+        .map(_userModelFromSnapshot);
   }
 }

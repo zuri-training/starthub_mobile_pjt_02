@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:starthub_mobile_pjt/constants.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('Network not available, Reconnecting'), CircularProgressIndicator( valueColor: AlwaysStoppedAnimation<Color>(Colors.white),strokeWidth: 2,)],
-        ),
-      
+    return Container(
+      color: kBackground,
+      child: Center(
+        child: SpinKitChasingDots(color: kPrimaryColor, size: 50.0),
+      ),
     );
   }
 }

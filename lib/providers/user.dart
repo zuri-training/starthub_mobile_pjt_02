@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:starthub_mobile_pjt/models/userModel.dart';
 
-class User with ChangeNotifier {
+class Users with ChangeNotifier {
   List<UserModel> _userDetails = [
     UserModel(
       fName: 'Esther',

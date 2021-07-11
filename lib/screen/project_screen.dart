@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked/stacked.dart';
-import 'package:starthub_mobile_pjt/models/startup_view_model.dart';
+import 'package:starthub_mobile_pjt/authentication/register.dart';
 import 'package:starthub_mobile_pjt/models/projectModel.dart';
 import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:starthub_mobile_pjt/widget/project_grid.dart';
 import 'package:provider/provider.dart';
 import '../constants.dart';
-import 'signup_screen.dart';
 
 class ProjectScreen extends StatefulWidget {
   @override
@@ -76,11 +74,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final projectData = Provider.of<Projects>(context);
-    return ViewModelBuilder<StartUpViewModel>.reactive(
-        viewModelBuilder: () => StartUpViewModel(),
-        onModelReady: (model) => model.handleStartUpLogic(),
-        builder: (context, model, child) {
-          return Scaffold(
+    return Scaffold(
               body: SafeArea(
             child: Column(
               children: <Widget>[
@@ -158,7 +152,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SignUp()),
+                          MaterialPageRoute(builder: (context) => Register()),
                         );
                       },
                       child: Text('Signup to showcase your project!',
@@ -173,23 +167,22 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 Expanded(
                   child: ProjectGrid(projectData.items),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: _searchProject.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No Records Found',
-                            style: GoogleFonts.inter(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        )
-                      : ProjectGrid(_searchProject),
-                )
+                // Expanded(
+                //   flex: 1,
+                //   child: _searchProject.isEmpty
+                //       ? Center(
+                //           child: Text(
+                //             'No Records Found',
+                //             style: GoogleFonts.inter(
+                //               fontSize: 23,
+                //               fontWeight: FontWeight.bold,
+                //             ),
+                //           ),
+                //         )
+                //       : ProjectGrid(_searchProject),
+                // )
               ],
             ),
           ));
-        });
   }
 }

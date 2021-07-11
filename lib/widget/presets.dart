@@ -59,8 +59,9 @@ class NewTextField extends StatelessWidget {
     return Container(
         height: 50,
         child: Center(
-            child: TextField(
+            child: TextFormField(
                 controller: controller,
+                validator: (value) => value.isNotEmpty ? null : "Cannot be empty",
                 decoration: InputDecoration(
                     hintText: hintText,
                     hintStyle: kHintTextStyle,
