@@ -122,17 +122,7 @@ class _SignUpState extends State<SignUp> {
           {
             return Scaffold(
                 backgroundColor: Colors.white,
-                appBar: AppBar(
-                  elevation: 0.0,
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                      size: 35.0,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ),
+                
                 body: SafeArea(
                   child: Form(
                     key: _formkey,

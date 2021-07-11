@@ -115,26 +115,26 @@ class _LogInState extends State<LogIn> {
                               );
                             }),
                             SizedBox(height: 15),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  NewInkWell(text: 'Forget Password'),
-                                  SizedBox(height: 50)
-                                ]),
-                            SizedBox(height: 15),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('or login in', style: kOrLoginTextStyle),
-                                  NewInkWell(
-                                      text: 'Google',
-                                      icon: FontAwesomeIcons.google),
-                                  NewInkWell(
-                                      text: 'Github',
-                                      icon: FontAwesomeIcons.github)
-                                ]),
-                            SizedBox(height: 31),
+                            // Row(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       NewInkWell(text: 'Forget Password'),
+                            //       SizedBox(height: 50)
+                            //     ]),
+                            // SizedBox(height: 15),
+                            // Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       Text('or login in', style: kOrLoginTextStyle),
+                            //       NewInkWell(
+                            //           text: 'Google',
+                            //           icon: FontAwesomeIcons.google),
+                            //       NewInkWell(
+                            //           text: 'Github',
+                            //           icon: FontAwesomeIcons.github)
+                            //     ]),
+                            // SizedBox(height: 31),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
