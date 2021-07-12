@@ -7,8 +7,8 @@ import 'package:starthub_mobile_pjt/service/navigation_service.dart';
 
 import '../constants.dart';
 import '../locator.dart';
-import '../presets.dart';
-import 'sign_in.dart';
+import '../widget/presets.dart';
+
 
 class Register extends StatefulWidget {
   const Register({Key key}) : super(key: key);
@@ -193,7 +193,7 @@ class _RegisterState extends State<Register> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('Already have an account?',
-                                  style: kOrLoginTextStyle),
+                                  style: kUniversalTextStyle),
                               SizedBox(width: 5),
                               InkWell(
                                   onTap: () => Navigator.push(
@@ -210,7 +210,7 @@ class _RegisterState extends State<Register> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('or Register with', style: kOrLoginTextStyle),
+                            Text('or Register with', style: kUniversalTextStyle),
                             NewInkWell(
                                 text: 'Google', icon: FontAwesomeIcons.google),
                             NewInkWell(

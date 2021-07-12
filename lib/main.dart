@@ -5,6 +5,7 @@ import 'package:starthub_mobile_pjt/providers/projects.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:starthub_mobile_pjt/providers/user.dart';
+import 'package:starthub_mobile_pjt/screen/splashscreen.dart';
 import 'package:starthub_mobile_pjt/service/authentication.dart';
 import 'package:starthub_mobile_pjt/wrapper.dart';
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: Wrapper(),
+          home: Splash(),
         ));
   }
 }

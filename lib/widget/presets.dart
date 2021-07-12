@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../constants.dart';
 
 //Headers for login and sign up page
 class NewHeaders extends StatelessWidget {
@@ -21,11 +22,14 @@ class NewButton extends StatelessWidget {
     this.buttonText,
     this.onTap,
     this.busy,
+    this.color,
+    this.textColor
   });
 
   final String buttonText;
   final Function onTap;
   final bool busy;
+  final Color color, textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +42,20 @@ class NewButton extends StatelessWidget {
         padding: EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: kPrimaryColor,
+          color: color,
         ),
         child: Center(
-          child: Text(buttonText, style: kButtonTextStyle),
+          child: Text(
+            buttonText,
+            style: GoogleFonts.openSans(
+                fontSize: 18, fontWeight: FontWeight.w400, color: textColor),
+          ),
         ),
       ),
     );
   }
 }
+
 
 //Textfield for login and sign up page
 class NewTextField extends StatelessWidget {

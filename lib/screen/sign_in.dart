@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+
 import 'package:starthub_mobile_pjt/locator.dart';
-import 'package:starthub_mobile_pjt/screen/home.dart';
+
 import 'package:starthub_mobile_pjt/service/authentication.dart';
 import 'package:starthub_mobile_pjt/service/dialog_service.dart';
 import 'package:starthub_mobile_pjt/service/navigation_service.dart';
 
 import '../constants.dart';
-import '../presets.dart';
+import '../widget/presets.dart';
 import 'register.dart';
 
 class SignIn extends StatefulWidget {
@@ -75,17 +75,7 @@ class _SignInState extends State<SignIn> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-              size: 35.0,
-            ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
+        
         body: SafeArea(
           child: Form(
             key: _formkey,
